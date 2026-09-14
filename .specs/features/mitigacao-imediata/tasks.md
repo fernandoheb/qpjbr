@@ -329,10 +329,10 @@ T16 -> T17
 
 **Done when**:
 
-- [ ] Checkbox `aceitou_termo` existe e inicia desmarcado
-- [ ] Clique em enviar sem marca não chama `saveData.php?salvar`
-- [ ] Cadastro manual (nome, idade, e-mail, escolaridade, gênero) permanece
-- [ ] Gate: `php tests/run.php` — 26 testes
+- [x] Checkbox `aceitou_termo` existe e inicia desmarcado
+- [x] Clique em enviar sem marca não chama `saveData.php?salvar`
+- [x] Cadastro manual (nome, idade, e-mail, escolaridade, gênero) permanece
+- [x] Gate: `php tests/run.php` — 26 testes
 
 **Tests**: unit
 **Gate**: quick

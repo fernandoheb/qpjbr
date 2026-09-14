@@ -367,6 +367,21 @@
 												</div>
 
 											</div>
+											<div class="row">
+												<div class="col-md-12">
+													<p style="text-align:justify">
+												Os dados coletados por meio deste questionário destinam-se exclusivamente para a pesquisa e serão mantidos em sigilo.
+
+												A sua participação envolve responder o questionário de caracterização dos perfis de jogadores. Todos os seus dados serão mantido confidenciais e serão utilizados somente para os fins da pesquisa de forma acumulada, mantendo sempre o seu nome em sigilo. Você pode se recusar a participar do estudo ou retirar seu consentimento a qualquer momento, sem precisar justificar. Se você estiver de acordo com este termo, nós gostaríamos que você aceitasse participar e se compremeter a dizer a verdade ao questionário a seguir.
+													</p>
+													<div class="form-group">
+														<label>
+															<input type="checkbox" name="aceitou_termo" id="aceitou_termo" value="1" />
+															Li e aceito o termo de aceitação e confidencialidade
+														</label>
+													</div>
+												</div>
+											</div>
 											<p>
 												<a href="javascript:void(0)" class="pop" data-content="Todos os dados coletados por meio deste questionário destinam-se exclusivamente para a pesquisa e todas as informações serão mantidos em sigilo absoluto." data-title="Não se preocupe!" data-placement="top" data-toggle="popover">
 													Porque você quer minhas informações?
@@ -704,6 +719,10 @@ Responda as questões da seção seguinte pensando na importância que você con
                     });
 
 		    $(".submitQuestionario").click(function (e) {
+                        if (!$("#aceitou_termo").prop("checked")) {
+                            swal("Oops...","Você precisa aceitar o termo para enviar.","error");
+                            return;
+                        }
                         //Validação dos componentes radio buttons
                         var nulo = 0;
  //                       console.log("valor de nulo no começo "+nulo);
