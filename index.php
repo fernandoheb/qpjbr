@@ -80,15 +80,6 @@
 
 
 
-	        step = 0;
-	        function callalert(){
-	        vartemp = setTimeout(alertstep, 1000);
-	        }
-	        function alertstep(){
-	        if(step == 2){swal('Perguntas de importância','Responda as questões da seção seguinte pensando na importância que você confere ao que é perguntado ou afirmado.');}
-	        if(step == 4){swal('Perguntas gerais','Para finalizar, responda algumas questões gerais sobre gosto, frequência e interesse.');}
-	        if(step == 3){swal('Perguntas de gosto e frequência','Responda as questões da seção seguinte pensando no quanto você gosta dos itens enunciados e com que frequência você faz as ações perguntadas.');}
-	        }
 //Funcao de debug (aparentemente)
     function dump(arr,level) {
 	var dumped_text = "";
@@ -297,7 +288,7 @@
 
 
 											<div class="center  margin-top-20">
-											<button type="button" id="btnContinuar" class="btn btn-primary next-step btn-wide " disabled onclick="if(document.getElementById('escolaridade').value){step = 2;callalert();}">
+											<button type="button" id="btnContinuar" class="btn btn-primary next-step btn-wide " disabled onclick="if(document.getElementById('escolaridade').value){step = 2;}">
 												Continuar <i class="fa fa-arrow-circle-right"></i>
 											</button>
 											</div>
@@ -409,11 +400,15 @@ Responda as questões da seção seguinte pensando na importância que você con
 <h3 style="display: inline;">Perguntas de importância</h3>
 
 										<br></br>
+<div class="alert alert-info sessao-intro text-left" role="note">
+<strong>Perguntas de importância</strong>
+<p>Responda as questões da seção seguinte pensando na importância que você confere ao que é perguntado ou afirmado.</p>
+</div>
 
 							<?php
 								$bloco = '<div id="step-valorStep"><div class="row"><div class="col-md-12"><div class="text-center">';
-								$footer = '<div class="form-group"><button class="btn btn-primary back-step btn-wide pull-left" onclick="step = step - 1;"><i class="fa fa-circle-arrow-left"></i> Voltar</button>
-								<button class="btn btn-primary next-step btn-wide pull-right" onclick="step = step + 1;callalert();">Próximo <i class="fa fa-arrow-circle-right"></i></button></div></div></div></div></div>';
+								$footer = '<div class="form-group"><button class="btn btn-primary back-step btn-wide pull-left"><i class="fa fa-circle-arrow-left"></i> Voltar</button>
+								<button class="btn btn-primary next-step btn-wide pull-right">Próximo <i class="fa fa-arrow-circle-right"></i></button></div></div></div></div></div>';
 
 
 
@@ -509,14 +504,20 @@ Responda as questões da seção seguinte pensando na importância que você con
                                                                                 echo '
                                                                                      <a href="#" title="Perguntas de Gosto e Frequência" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="Responda as questões da seção seguinte pensando no quanto você gosta dos itens enunciados e com que
                                                                                      frequência você faz as ações perguntadas"><img src="img/quest.png" style="margin-bottom: 12px; margin-right: 6px;" width="30px" height="30px"></img></a><h3 style="display: inline;">Perguntas de Gosto e Frequência</h3>
-
+<div class="alert alert-info sessao-intro text-left" role="note">
+<strong>Perguntas de gosto e frequência</strong>
+<p>Responda as questões da seção seguinte pensando no quanto você gosta dos itens enunciados e com que frequência você faz as ações perguntadas.</p>
+</div>
                                                                                                           ';  }
                                                                                                           if($step == 4){
                                                                          echo '
                                                                         <a href="#" title="Perguntas gerais" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="Para finalizar responda agora algumas questões gerais sobre gosto, frequência e interesse.">
                                                                             <img src="img/quest.png" style="margin-bottom: 12px; margin-right: 6px;" width="30px" height="30px"></img>
                                                                         </a><h3 style="display: inline;">Perguntas gerais</h3>
-
+<div class="alert alert-info sessao-intro text-left" role="note">
+<strong>Perguntas gerais</strong>
+<p>Para finalizar, responda algumas questões gerais sobre gosto, frequência e interesse.</p>
+</div>
                                                                         '; 									}
 									}
 
@@ -525,7 +526,7 @@ Responda as questões da seção seguinte pensando na importância que você con
 							?>
 
 											<div class="form-group">
-											<button class="btn btn-primary btn-o back-step btn-wide pull-left" onclick="step = step - 1;">
+											<button class="btn btn-primary btn-o back-step btn-wide pull-left">
 												<i class="fa fa-circle-arrow-left"></i> Voltar
 											</button>
 											<button class="submitQuestionario btn btn-primary btn-o btn-wide pull-right" >

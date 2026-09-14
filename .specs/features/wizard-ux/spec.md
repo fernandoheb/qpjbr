@@ -93,14 +93,14 @@ and validation.
 | WIZ-01 | P1: Continuar só com termo | Execute | Implementing |
 | WIZ-02 | P1: Continuar só com termo | Execute | Implementing |
 | WIZ-03 | P1: Continuar só com termo | Execute | Implementing |
-| WIZ-04 | P1: Instrução de seção visível | Execute | Pending |
-| WIZ-05 | P1: Instrução de seção visível | Execute | Pending |
+| WIZ-04 | P1: Instrução de seção visível | Execute | Implementing |
+| WIZ-05 | P1: Instrução de seção visível | Execute | Implementing |
 
 **ID format:** `WIZ-NN`
 
 **Status values:** Pending → Implementing → Verified
 
-**Coverage:** 5 total, 3 mapped to T1, 2 unmapped
+**Coverage:** 5 total, 5 mapped to execute, 0 unmapped
 
 ---
 
