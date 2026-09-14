@@ -246,31 +246,30 @@ and validation.
 
 | Requirement ID | Story | Phase | Status |
 | -------------- | ----- | ----- | ------ |
-| SQLI-01 | P1: Escrita sem SQL injection | Execute | Implementing |
-| SQLI-02 | P1: Escrita sem SQL injection | Execute | Implementing |
-| SQLI-03 | P1: Escrita sem SQL injection | Execute | Implementing |
-| SQLI-04 | P1: Escrita sem SQL injection | Execute | Implementing |
-| SECR-01 | P1: Segredos fora do código e do seed | Execute | Implementing |
-| SECR-02 | P1: Segredos fora do código e do seed | Execute | Implementing |
-| SECR-03 | P1: Segredos fora do código e do seed | Execute | Implementing |
-| SECR-04 | P1: Segredos fora do código e do seed | Execute | Implementing |
-| SECR-05 | P1: Segredos fora do código e do seed | Execute | Implementing |
-| SURF-01 | P1: Superfície morta fora do git | Execute | Implementing |
-| SURF-02 | P1: Superfície morta fora do git | Execute | Implementing |
-| SURF-03 | P1: Superfície morta fora do git | Execute | Implementing |
-| SURF-04 | P1: Superfície morta fora do git | Execute | Implementing |
-| SURF-05 | P1: Superfície morta fora do git | Execute | Implementing |
-| SURF-06 | P1: Superfície morta fora do git | Execute | Implementing |
-| FACE-01 | P1: Facebook Login desligado | Execute | Implementing |
-| FACE-02 | P1: Facebook Login desligado | Execute | Implementing |
-| FACE-03 | P1: Facebook Login desligado | Execute | Implementing |
-| CONS-01 | P1: Aceite obrigatório do termo | Execute | Implementing |
-| CONS-02 | P1: Aceite obrigatório do termo | Execute | Implementing |
-| CONS-03 | P1: Aceite obrigatório do termo | Execute | Implementing |
-| CONS-04 | P1: Aceite obrigatório do termo | Execute | Implementing |
-| XSS-01 | P2: Output sem eco cru da query string | Execute | Implementing |
-| XSS-02 | P2: Output sem eco cru da query string | Execute | Implementing |
-| XSS-02 | P2: Output sem eco cru da query string | Execute | Implementing |
+| SQLI-01 | P1: Escrita sem SQL injection | Execute | Verified |
+| SQLI-02 | P1: Escrita sem SQL injection | Execute | Verified |
+| SQLI-03 | P1: Escrita sem SQL injection | Execute | Verified |
+| SQLI-04 | P1: Escrita sem SQL injection | Execute | Verified |
+| SECR-01 | P1: Segredos fora do código e do seed | Execute | Verified |
+| SECR-02 | P1: Segredos fora do código e do seed | Execute | Verified |
+| SECR-03 | P1: Segredos fora do código e do seed | Execute | Verified |
+| SECR-04 | P1: Segredos fora do código e do seed | Execute | Verified |
+| SECR-05 | P1: Segredos fora do código e do seed | Execute | Verified |
+| SURF-01 | P1: Superfície morta fora do git | Execute | Verified |
+| SURF-02 | P1: Superfície morta fora do git | Execute | Verified |
+| SURF-03 | P1: Superfície morta fora do git | Execute | Verified |
+| SURF-04 | P1: Superfície morta fora do git | Execute | Verified |
+| SURF-05 | P1: Superfície morta fora do git | Execute | Verified |
+| SURF-06 | P1: Superfície morta fora do git | Execute | Verified |
+| FACE-01 | P1: Facebook Login desligado | Execute | Verified |
+| FACE-02 | P1: Facebook Login desligado | Execute | Verified |
+| FACE-03 | P1: Facebook Login desligado | Execute | Verified |
+| CONS-01 | P1: Aceite obrigatório do termo | Execute | Verified |
+| CONS-02 | P1: Aceite obrigatório do termo | Execute | Verified |
+| CONS-03 | P1: Aceite obrigatório do termo | Execute | Verified |
+| CONS-04 | P1: Aceite obrigatório do termo | Execute | Verified |
+| XSS-01 | P2: Output sem eco cru da query string | Execute | Verified |
+| XSS-02 | P2: Output sem eco cru da query string | Execute | Verified |
 
 **ID format:** `[CATEGORY]-[NUMBER]` (e.g., `SQLI-01`)
 
