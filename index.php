@@ -297,7 +297,7 @@
 
 
 											<div class="center  margin-top-20">
-											<button class="btn btn-primary next-step btn-wide " onclick="if(document.getElementById('escolaridade').value){step = 2;callalert();}">
+											<button type="button" id="btnContinuar" class="btn btn-primary next-step btn-wide " disabled onclick="if(document.getElementById('escolaridade').value){step = 2;callalert();}">
 												Continuar <i class="fa fa-arrow-circle-right"></i>
 											</button>
 											</div>
@@ -606,6 +606,17 @@ Responda as questões da seção seguinte pensando na importância que você con
 		jQuery(document).ready(function() {
 				Main.init();
 				FormWizard.init();
+
+                    function qpjSyncContinuar() {
+                        var box = document.getElementById('aceitou_termo');
+                        var btn = document.getElementById('btnContinuar');
+                        if (!box || !btn) {
+                            return;
+                        }
+                        btn.disabled = !box.checked;
+                    }
+                    $('#aceitou_termo').on('change', qpjSyncContinuar);
+                    qpjSyncContinuar();
 
                     $('.pop').on('click', function (e) {
       			$('.pop').not(this).popover('hide');
