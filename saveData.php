@@ -232,38 +232,58 @@
 
 	//Salva as respostas sobre a concordância do usuário
 	if(isset($_GET["concordo"])){
-		$respostaId = $_POST["respostaId"];
-		$respostaOpinao = $_POST["respostaOpinao"];
-		$respostaTipoJogador = $_POST["respostaTipoJogador"];
+		$rawRespostaId = isset($_POST["respostaId"])
+            ? $_POST["respostaId"] : '';
+		$respostaId = requireInt($rawRespostaId, 'respostaId');
+		$respostaOpinao = isset($_POST["respostaOpinao"])
+            ? $_POST["respostaOpinao"] : '';
+		$respostaTipoJogador = isset($_POST["respostaTipoJogador"])
+            ? $_POST["respostaTipoJogador"] : '';
 
-		$insereOpniao = $puxaBD->selectCustomQuery('INSERT INTO `concordo`(`idResposta`, `concordo`, `resultado`)
-			VALUES ("'.$respostaId.'", "'.$respostaOpinao.'", "'.utf8_decode($respostaTipoJogador).'")');
+		$insereOpniao = $puxaBD->executeBound(
+            'INSERT INTO `concordo`(`idResposta`, `concordo`, `resultado`) VALUES (?, ?, ?)',
+            'iss',
+            array(
+                $respostaId,
+                $respostaOpinao,
+                utf8_decode($respostaTipoJogador)
+            )
+        );
 
-		echo json_encode($insereOpniao);//Ã© obrigado o json receber alguma coisa;
+		echo json_encode($insereOpniao);
 
 	}
-	//Salva as respostas caso o usuário discorde do resultado
 	if(isset($_GET["nconcordo"])){
-		$perfil = $_POST["perfilEscolhido"];
-		$id= $_POST["idJogador"];
+		$perfil = isset($_POST["perfilEscolhido"])
+            ? $_POST["perfilEscolhido"] : '';
+		$rawId = isset($_POST["idJogador"]) ? $_POST["idJogador"] : '';
+		$id = requireInt($rawId, 'id');
 
-		$insereOpniao = $puxaBD->selectCustomQuery('INSERT INTO `nconcordo`(`idResposta`, `perfil`)
-			VALUES ("'.$id.'", "'.utf8_decode($perfil).'")');
+		$insereOpniao = $puxaBD->executeBound(
+            'INSERT INTO `nconcordo`(`idResposta`, `perfil`) VALUES (?, ?)',
+            'is',
+            array($id, utf8_decode($perfil))
+        );
 
-		echo json_encode($insereOpniao);//Ã© obrigado o json receber alguma coisa;
+		echo json_encode($insereOpniao);
 
 	}
-    //Salva as respostas caso o usuário discorde do resultado - Opinião
 	if(isset($_GET["perfilIdentificado"])){
-		$respostaId = $_POST["respostaId"];
-		$respostaOpinao = $_POST["respostaOpinao"];
-		$respostaTipoJogador = $_POST["respostaTipoJogador"];
+		$rawRespostaId = isset($_POST["respostaId"])
+            ? $_POST["respostaId"] : '';
+		$respostaId = requireInt($rawRespostaId, 'respostaId');
+		$respostaOpinao = isset($_POST["respostaOpinao"])
+            ? $_POST["respostaOpinao"] : '';
+		$respostaTipoJogador = isset($_POST["respostaTipoJogador"])
+            ? $_POST["respostaTipoJogador"] : '';
 
-		$insereOpniao = $puxaBD->selectCustomQuery('INSERT INTO `concordo`(`idResposta`, `concordo`, `resultado`)
-			VALUES ("'.$respostaId.'", "'.$respostaOpinao.'", "'.$respostaTipoJogador.'")');
+		$insereOpniao = $puxaBD->executeBound(
+            'INSERT INTO `concordo`(`idResposta`, `concordo`, `resultado`) VALUES (?, ?, ?)',
+            'iss',
+            array($respostaId, $respostaOpinao, $respostaTipoJogador)
+        );
 
-
-		echo json_encode($insereOpniao);//Ã© obrigado o json receber alguma coisa;
+		echo json_encode($insereOpniao);
 
 
 		}
