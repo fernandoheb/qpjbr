@@ -7,19 +7,10 @@
 	$gender = null;
 	$cod_grupo_exp = null;
 	$eh_um_teste = '';
-	if(isset($_GET["name"])){
-		$name = $_GET['name'];
-	}
 	if(isset($_GET["teste"])){
 		$eh_um_teste = "checked = true";
 	}
-		
-	if(isset($_GET["email"])){
-		$email = $_GET['email'];
-	}
-	if(isset($_GET["gender"])){
-		$gender = $_GET['gender'];
-	}
+
 	if(isset($_GET["codgrp"])){
 		$cod_grupo_exp = $_GET["codgrp"];
 	}
@@ -120,95 +111,6 @@
 
 
 
-  function testAPI(cod_grupo_exp) {
-	  //testar se está funcionando
-	  //quando fizer o login usando o facebook não pode perder a identificação do grupo, 
-	  //se a url tiver o cod_grupo_exp anteriormente tem que trazer ele junto
-	    //console.log(cod_grupo_exp);
-        FB.api('/me', function(response) {
-        //alert(dump(response));
-		var url = 'index.php?name='+response.name+'&email='+response.email+'&gender='+response.gender+'&birthday='+response.birthday;
-		if (cod_grupo_exp != null)
-				url += 'codgrp='+cod_grupo_exp;			
-        parent.window.location.href= url;
-
-    });
-  }
-  // This is called with the results from from FB.getLoginStatus().
-  function statusChangeCallback(response) {
-	 
-
-    console.log('statusChangeCallback');
-    console.log(response);
-    // The response object is returned with a status field that lets the
-    // app know the current login status of the person.
-    // Full docs on the response object can be found in the documentation
-    // for FB.getLoginStatus().
-    if (response.status === 'connected') {
-      // Logged into your app and Facebook.
-      <?php
-      if(!$name){echo"
-      testAPI(".$cod_grupo_exp.");";}
-      ?>
-    } else if (response.status === 'not_authorized') {
-      // The person is logged into Facebook, but not your app.
-    document.getElementById('status').innerHTML = '';
-    } else {
-      // The person is not logged into Facebook, so we're not sure if
-      // they are logged into this app or not.
-      document.getElementById('status').innerHTML = '';
-    }
-  }
-
-  // This function is called when someone finishes with the Login
-  // Button.  See the onlogin handler attached to it in the sample
-  // code below.
-  function checkLoginState() {
-    FB.getLoginStatus(function(response) {
-      statusChangeCallback(response);
-    });
-  }
-
-  window.fbAsyncInit = function() {
-  FB.init({
-    appId      : '456156691222796',
-    cookie     : true,  // enable cookies to allow the server to access
-                        // the session
-    xfbml      : true,  // parse social plugins on this page
-    version    : 'v2.2' // use version 2.2
-  });
-
-  // Now that we've initialized the JavaScript SDK, we call
-  // FB.getLoginStatus().  This function gets the state of the
-  // person visiting this page and can return one of three states to
-  // the callback you provide.  They can be:
-  //
-  // 1. Logged into your app ('connected')
-  // 2. Logged into Facebook, but not your app ('not_authorized')
-  // 3. Not logged into Facebook and can't tell if they are logged into
-  //    your app or not.
-  //
-  // These three cases are handled in the callback function.
-
-  FB.getLoginStatus(function(response) {
-    statusChangeCallback(response);
-  });
-
-  };
-
-  // Load the SDK asynchronously
-  (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = '//connect.facebook.net/en_US/sdk.js';
-    fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
-
-  // Here we run a very simple test of the Graph API after login is
-  // successful.  See statusChangeCallback() for when this call is made.
-
-
 </script>
 
 
@@ -280,13 +182,6 @@
 												1 - Informações pessoais
 											</legend>
 											<div class="row">
-											    <?php
-											    if (!$name){ echo'
-											    <center><b>Preencha os dados utilizando o Facebook</b><br></br>
-											    <div id="status"></div><br></br>
-											    <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
-</fb:login-button></center><br></br>
-';}?>
 												<div class="col-md-6">
 													<div class="form-group">
 														<label>
