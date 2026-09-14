@@ -382,11 +382,11 @@ T16 -> T17
 
 **Done when**:
 
-- [ ] Ignore inclui `teste/`, `CurPhpVersion.php`, `adminMeusAnuncios.inc.php`, `vendor/jquery-file-upload/server/php/`, `experimental.sql`, `experimental2.sql`, `banco_de_dados.sql`, `Estrutura_banco_de_dados.sql`
-- [ ] `git ls-files` não lista esses caminhos
-- [ ] Arquivos permanecem no disco
-- [ ] `index.html` continua versionado
-- [ ] Gate: `php tests/run.php` — 28 testes
+- [x] Ignore inclui `teste/`, `CurPhpVersion.php`, `adminMeusAnuncios.inc.php`, `vendor/jquery-file-upload/server/php/`, `experimental.sql`, `experimental2.sql`, `banco_de_dados.sql`, `Estrutura_banco_de_dados.sql`
+- [x] `git ls-files` não lista esses caminhos
+- [x] Arquivos permanecem no disco
+- [x] `index.html` continua versionado
+- [x] Gate: `php tests/run.php` — 28 testes
 
 **Tests**: unit
 **Gate**: build
