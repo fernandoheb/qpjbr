@@ -409,9 +409,9 @@ T16 -> T17
 
 **Done when**:
 
-- [ ] Ficha para cada caminho da T12
-- [ ] Nota de que `index.html` permanece como landing
-- [ ] Gate: `php tests/run.php`
+- [x] Ficha para cada caminho da T12
+- [x] Nota de que `index.html` permanece como landing
+- [x] Gate: `php tests/run.php`
 
 **Tests**: none
 **Gate**: build
