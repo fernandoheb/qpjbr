@@ -1,15 +1,8 @@
 <?php
 include 'functions.inc2.php';
+$rawId = isset($_GET['id']) ? $_GET['id'] : '';
+$id = requireInt($rawId, 'id');
 echo "loading...";
-	$puxaBD = new Crud();
-	$puxaBD->conn();
-	/*	$DB_HOSTNAME = 'localhost';
-		$DB_USERNAME = 'root';
-		$DB_PASSWORD = 's3nh4r00t';
-		$DB_DATABASE = 'brunopra_yee';
-		$link=mysql_connect($DB_HOSTNAME,$DB_USERNAME,$DB_PASSWORD);
-		$dbs = mysql_select_db($DB_DATABASE);  */
-$id = @$_GET['id'];
 if(isset($_GET['type1'])){$type1 = @$_GET['type1'];}
 if(isset($_GET['type2'])){$type2 = @$_GET['type2'];}
 if(isset($_GET['type3'])){$type3 = @$_GET['type3'];}
@@ -59,8 +52,10 @@ if(isset($type10)){$perfil = $perfil .  $types[10]."[".$rating10."/5]+";}
 
 printf($perfil);
 
-$sql = "insert into nconcordo (idResposta,perfil) values ('$id','$perfil')";
-$result = $puxaBD->selectCustomQuery($sql);
-//$result = mysql_query($sql);
+$puxaBD = new Crud();
+$puxaBD->executeBound(
+    'insert into nconcordo (idResposta,perfil) values (?, ?)',
+    'is',
+    array($id, $perfil)
+);
 
-?>

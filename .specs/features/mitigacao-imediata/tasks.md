@@ -251,9 +251,9 @@ T16 -> T17
 
 **Done when**:
 
-- [ ] `id` inválido vira HTTP 400
-- [ ] Arquivo não contém `s3nh4r00t`
-- [ ] Gate: `php tests/run.php` — 18 testes
+- [x] `id` inválido vira HTTP 400
+- [x] Arquivo não contém `s3nh4r00t`
+- [x] Gate: `php tests/run.php` — 18 testes
 
 **Tests**: unit
 **Gate**: quick
