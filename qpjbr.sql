@@ -46,7 +46,7 @@ CREATE TABLE `colaboradores` (
 --
 
 INSERT INTO `colaboradores` (`ID`, `Name`, `Foto`, `Formacao`, `Afiliacao`, `lattes`, `email`, `DATETIME`) VALUES
-(1, 'Fernando R. H. Andrade', 'fernando.jpg', 'Sistemas de Informação', 'Universidade de São Paulo', 'http://lattes.cnpq.br/2225159212201413', 'fernando.heb@gmail.com', '2016-10-31 21:29:42'),
+(1, 'Fernando R. H. Andrade', 'fernando.jpg', 'Sistemas de Informação', 'Universidade de São Paulo', 'http://lattes.cnpq.br/2225159212201413', '', '2016-10-31 21:29:42'),
 (2, 'Guilherme Gomes Ferreira', 'guilherme.jpg', 'Sistemas de Informação', 'Universidade de São Paulo', '', 'ferreiraguilhermeg@gmail.com', '2016-10-31 21:29:42'),
 (3, 'Prof. Dr. Seiji Isotani', 'seiji.png', 'Ciência da Computação', 'Universidade de São Paulo', 'http://lattes.cnpq.br/3030047284254233', 'sisotani@icmc.usp.br', '2016-10-31 21:29:42'),
 (4, 'Dr. Leonardo Brandão Marques ', 'leonardo.jpg', 'Psicologia', 'Universidade de São Paulo', 'http://lattes.cnpq.br/3705407022339177', 'leoprot-pesquisas@yahoo.com.br', '2016-10-31 21:29:42'),
@@ -192,7 +192,7 @@ CREATE TABLE `grupo_pesquisa` (
 --
 
 INSERT INTO `grupo_pesquisa` (`ID`, `Nome_Grupo`, `Sigla`, `Email_grupo`, `Responsavel`, `Senha`, `Email_resp`, `Contato`, `Descricao`, `Afiliacao`, `DATETIME`) VALUES
-(1, 'Isotani Lab', 'CAEDLAB', 'sisotani@gmail.com', 'Fernando Roberto Hebeler Andrade', '123lab', 'fernando.heb@gmail.com', NULL, 'Grupo de computação aplicada a educação coordenado pelo professor Seiji Isotani', 'Universidade de São Paulo', '2016-10-31 21:29:41');
+(1, 'Isotani Lab', 'CAEDLAB', 'sisotani@gmail.com', 'Fernando Roberto Hebeler Andrade', '', '', NULL, 'Grupo de computação aplicada a educação coordenado pelo professor Seiji Isotani', 'Universidade de São Paulo', '2016-10-31 21:29:41');
 
 -- --------------------------------------------------------
 
@@ -303,15 +303,9 @@ CREATE TABLE `resposta` (
   `escolaridade` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `dataNascimento` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `idade` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `aceitou_termo` TINYINT NOT NULL DEFAULT 0,
   `DATETIME` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Extraindo dados da tabela `resposta`
---
-
-INSERT INTO `resposta` (`id`, `Codigo_G_Exp`, `nome`, `email`, `genero`, `escolaridade`, `dataNascimento`, `idade`, `DATETIME`) VALUES
-(1, 'expontaneo', 'Fernando Roberto Hebeler Andrade', 'fernando.heb@gmail.com', 'm', 'Ensino Fundamental Incompleto', NULL, '32', '2020-06-16 15:33:43');
 
 -- --------------------------------------------------------
 

@@ -278,10 +278,10 @@ T16 -> T17
 
 **Done when**:
 
-- [ ] Coluna `aceitou_termo` TINYINT NOT NULL DEFAULT 0 existe
-- [ ] Sem `fernando.heb@gmail.com` e sem `123lab` no arquivo
-- [ ] Catálogo (questão/escala/fator/subfator) permanece
-- [ ] Gate: `php tests/run.php` — 20 testes
+- [x] Coluna `aceitou_termo` TINYINT NOT NULL DEFAULT 0 existe
+- [x] Sem `fernando.heb@gmail.com` e sem `123lab` no arquivo
+- [x] Catálogo (questão/escala/fator/subfator) permanece
+- [x] Gate: `php tests/run.php` — 20 testes
 
 **Tests**: unit
 **Gate**: build

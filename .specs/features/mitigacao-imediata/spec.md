@@ -253,7 +253,8 @@ and validation.
 | SECR-01 | P1: Segredos fora do código e do seed | Execute | Implementing |
 | SECR-02 | P1: Segredos fora do código e do seed | Execute | Implementing |
 | SECR-03 | P1: Segredos fora do código e do seed | Execute | Implementing |
-| SECR-04 | P1: Segredos fora do código e do seed | Tasks | In Tasks |
+| SECR-04 | P1: Segredos fora do código e do seed | Execute | Implementing |
+| SECR-05 | P1: Segredos fora do código e do seed | Tasks | In Tasks |
 | SECR-05 | P1: Segredos fora do código e do seed | Tasks | In Tasks |
 | SURF-01 | P1: Superfície morta fora do git | Tasks | In Tasks |
 | SURF-02 | P1: Superfície morta fora do git | Tasks | In Tasks |
@@ -266,8 +267,8 @@ and validation.
 | FACE-03 | P1: Facebook Login desligado | Tasks | In Tasks |
 | CONS-01 | P1: Aceite obrigatório do termo | Tasks | In Tasks |
 | CONS-02 | P1: Aceite obrigatório do termo | Tasks | In Tasks |
-| CONS-03 | P1: Aceite obrigatório do termo | Tasks | In Tasks |
-| CONS-04 | P1: Aceite obrigatório do termo | Tasks | In Tasks |
+| CONS-03 | P1: Aceite obrigatório do termo | Execute | Implementing |
+| CONS-04 | P1: Aceite obrigatório do termo | Execute | Implementing |
 | XSS-01 | P2: Output sem eco cru da query string | Tasks | In Tasks |
 | XSS-02 | P2: Output sem eco cru da query string | Tasks | In Tasks |
 
