@@ -261,8 +261,8 @@ and validation.
 | SURF-04 | P1: Superfície morta fora do git | Execute | Implementing |
 | SURF-05 | P1: Superfície morta fora do git | Execute | Implementing |
 | SURF-06 | P1: Superfície morta fora do git | Execute | Implementing |
-| FACE-01 | P1: Facebook Login desligado | Tasks | In Tasks |
-| FACE-02 | P1: Facebook Login desligado | Tasks | In Tasks |
+| FACE-01 | P1: Facebook Login desligado | Execute | Implementing |
+| FACE-02 | P1: Facebook Login desligado | Execute | Implementing |
 | FACE-03 | P1: Facebook Login desligado | Execute | Implementing |
 | CONS-01 | P1: Aceite obrigatório do termo | Execute | Implementing |
 | CONS-02 | P1: Aceite obrigatório do termo | Execute | Implementing |

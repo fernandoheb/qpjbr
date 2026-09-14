@@ -436,9 +436,9 @@ T16 -> T17
 
 **Done when**:
 
-- [ ] Arquivo não contém `FB.init`, `connect.facebook.net`, `fb:login-button`
-- [ ] Não lê `$_GET["name"]`, `$_GET["email"]`, `$_GET["gender"]`
-- [ ] Gate: `php tests/run.php` — 31 testes
+- [x] Arquivo não contém `FB.init`, `connect.facebook.net`, `fb:login-button`
+- [x] Não lê `$_GET["name"]`, `$_GET["email"]`, `$_GET["gender"]`
+- [x] Gate: `php tests/run.php` — 31 testes
 
 **Tests**: unit
 **Gate**: quick
