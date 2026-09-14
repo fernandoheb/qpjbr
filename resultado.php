@@ -139,14 +139,7 @@
 				$macroImersao=0;
 			}
 
-			$positivos = 0;
-			$i = 0;
-			while ($i<10){
-				if (str_replace(",", ".", $arrayFatores[$i]) > 0){
-					$positivos = $positivos + str_replace(",", ".", $arrayFatores[$i]);
-				}
-				$i++;
-			}
+			$positivos = qpjSomaPositivos($arrayFatores);
 			$maiorValor = str_replace(",", ".", $maiorValor);
 
 
@@ -252,7 +245,7 @@
       	<?php
       	$arrayNomeFatores = array("Avanco", "Escapismo", "Socializacao", "Competicao", "Customizacao", "Relacionamento", "Mecanica", "Roleplaying", "Trabalho em equipe", "Descoberta");
 	$arrayFatores = array($avanco, $escapismo,  $socializacao, $competicao, $customizacao,  $relacionamento, $mecanica, $roleplaying, $trabalhoemequipe, $descoberta);
-	$explicacao = array($explic[0],$explic[1],$explic[2],$explic[3],$explic[4],$explic[5],$explic[6],$explic[7],$explic[8],$explic[9]);
+	$explicacao = $explic;
       	?>
 
       	if (<?php echo $flag_resposta; ?> == 1){
@@ -539,10 +532,15 @@ alert("oi");
 			$s = 0;
 			$j = 0;
 			$teste = 0;
+			$nomesarray = array();
+			$geraimgv = array_fill(1, count($arrayNomeFatores), 0);
 			foreach ($arrayNomeFatores as $value){
 			$arrayFatores[$i] = str_replace(",", ".", $arrayFatores[$i]);
-					$teste = $arrayFatores[$i]/$positivos;
-				$teste = ($maiorValor/$positivos)-$teste;
+					$teste = qpjDistanciaDoTopo(
+                                                $arrayFatores[$i],
+                                                $maiorValor,
+                                                $positivos
+                                        );
 				if ($teste <= 0.05) {
 					$customQuery='SELECT  `descricao`, `nomeFantasia` FROM `subfator` WHERE id = '.(int)$i.'+1';
 					$query2 = $puxaBD->selectCustomQuery($customQuery);
@@ -798,9 +796,11 @@ Detalhes(0,1);
 			$teste = 0;
 			foreach ($arrayNomeFatores as $value){
 			$arrayFatores[$i] = str_replace(",", ".", $arrayFatores[$i]);
-					$teste = $arrayFatores[$i]/$positivos;
-
-				$teste = ($maiorValor/$positivos)-$teste;
+					$teste = qpjDistanciaDoTopo(
+                                                $arrayFatores[$i],
+                                                $maiorValor,
+                                                $positivos
+                                        );
 
 				if ($teste <= 0.05) {
 
@@ -1064,7 +1064,8 @@ Detalhes(0,1);
 
 			<?php
 		$i=0;
-		while($i<10){
+		$nPerfis = count($arrayNomeFatores);
+		while($i < $nPerfis){
 			echo '
 
 				<div id="expbar'.$i.'" class="text-justified">

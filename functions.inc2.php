@@ -349,6 +349,31 @@ Class Crud {
    }
 }
 
+function qpjSomaPositivos($fatores)
+{
+   $soma = 0.0;
+   $total = count($fatores);
+   $i = 0;
+   while ($i < $total) {
+      $valor = 0 + str_replace(',', '.', $fatores[$i]);
+      if ($valor > 0) {
+         $soma = $soma + $valor;
+      }
+      $i++;
+   }
+   return $soma;
+}
+
+function qpjDistanciaDoTopo($valor, $maiorValor, $positivos)
+{
+   if (!($positivos > 0)) {
+      return 1;
+   }
+   $valor = 0 + str_replace(',', '.', $valor);
+   $maior = 0 + str_replace(',', '.', $maiorValor);
+   return ($maior / $positivos) - ($valor / $positivos);
+}
+
 //General functions
 function fetchAll($result) {
    while ($row = $result->fetch_assoc()) {
