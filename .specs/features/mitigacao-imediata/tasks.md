@@ -304,9 +304,9 @@ T16 -> T17
 
 **Done when**:
 
-- [ ] Sem aceite: HTTP 400 e nenhum INSERT
-- [ ] Com aceite: SQL inclui `aceitou_termo` bound a 1
-- [ ] Gate: `php tests/run.php` — 23 testes
+- [x] Sem aceite: HTTP 400 e nenhum INSERT
+- [x] Com aceite: SQL inclui `aceitou_termo` bound a 1
+- [x] Gate: `php tests/run.php` — 23 testes
 
 **Tests**: unit
 **Gate**: quick

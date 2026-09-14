@@ -3,8 +3,7 @@
 	include 'functions.inc2.php';
 
 	$puxaBD = new Crud();
-	$puxaBD->conn();
-	
+
 	/*	$email = utf8_decode($_POST["email"]);
 		consoleLog($email);
 		$retorno = $puxaBD->selectCustomQuery("select * from resposta where email = '$email'");
@@ -13,6 +12,9 @@
 		consoleLog("id =".$row['id']);	*/
 	//Salva as Respostas dos usuários
 	if(isset($_GET["salvar"])){
+			$rawConsent = isset($_POST['aceitou_termo'])
+                ? $_POST['aceitou_termo'] : '';
+			requireConsent($rawConsent);
 			$Codigo_Experimental='expontaneo';
             $nome=$email=$genero=$escolaridade=$idade='';	
             if(isset($_POST['nomeApelido'])) {	
@@ -41,15 +43,16 @@
                 $idnext = $array->id + 1;*/
 
 	$puxaBD->executeBound(
-                'INSERT INTO `resposta`(`nome`, `email`, `genero`, `escolaridade`, `idade`,`Codigo_G_Exp`) VALUES (?, ?, ?, ?, ?, ?)',
-                'ssssss',
+                'INSERT INTO `resposta`(`nome`, `email`, `genero`, `escolaridade`, `idade`,`Codigo_G_Exp`, `aceitou_termo`) VALUES (?, ?, ?, ?, ?, ?, ?)',
+                'ssssssi',
                 array(
                     $nome,
                     $email,
                     $genero,
                     $escolaridade,
                     $idade,
-                    $Codigo_Experimental
+                    $Codigo_Experimental,
+                    1
                 )
         );
 	

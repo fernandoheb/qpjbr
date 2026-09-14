@@ -266,7 +266,7 @@ and validation.
 | FACE-02 | P1: Facebook Login desligado | Tasks | In Tasks |
 | FACE-03 | P1: Facebook Login desligado | Tasks | In Tasks |
 | CONS-01 | P1: Aceite obrigatório do termo | Tasks | In Tasks |
-| CONS-02 | P1: Aceite obrigatório do termo | Tasks | In Tasks |
+| CONS-02 | P1: Aceite obrigatório do termo | Execute | Implementing |
 | CONS-03 | P1: Aceite obrigatório do termo | Execute | Implementing |
 | CONS-04 | P1: Aceite obrigatório do termo | Execute | Implementing |
 | XSS-01 | P2: Output sem eco cru da query string | Tasks | In Tasks |
