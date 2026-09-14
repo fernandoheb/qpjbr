@@ -161,11 +161,9 @@ Class Crud {
    function conn() {
       $this->conn = new mysqli($this->DB_HOSTNAME, $this->DB_USERNAME, $this->DB_PASSWORD, $this->DB_DATABASE, 3306);
       if (mysqli_connect_errno()) {
-         echo nl2br("Error: Could not connect to database \n " . mysqli_connect_error() . "\n\n"); //echo + \n need nl2br function
-         echo "Erro: Não foi possível conectar com o banco de dados \n \n \n";
-         echo $url . "," . $this->DB_HOSTNAME . "," . $this->DB_USERNAME . "," . $this->DB_PASSWORD . "\n \n" . mysqli_connect_error();
-         exit;         
-      }      
+         echo "Não foi possível conectar ao banco";
+         exit;
+      }
       return $this->conn;
    }
 

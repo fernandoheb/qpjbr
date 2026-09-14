@@ -148,9 +148,9 @@ T16 -> T17
 
 **Done when**:
 
-- [ ] Código de `conn()` não referencia `DB_PASSWORD` em `echo`
-- [ ] Teste de fonte falha se host/user/senha forem concatenados no erro
-- [ ] Gate: `php tests/run.php` — 8 testes
+- [x] Código de `conn()` não referencia `DB_PASSWORD` em `echo`
+- [x] Teste de fonte falha se host/user/senha forem concatenados no erro
+- [x] Gate: `php tests/run.php` — 8 testes
 
 **Tests**: unit
 **Gate**: quick

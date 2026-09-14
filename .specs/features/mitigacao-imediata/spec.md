@@ -250,8 +250,8 @@ and validation.
 | SQLI-02 | P1: Escrita sem SQL injection | Tasks | In Tasks |
 | SQLI-03 | P1: Escrita sem SQL injection | Execute | Implementing |
 | SQLI-04 | P1: Escrita sem SQL injection | Tasks | In Tasks |
-| SECR-01 | P1: Segredos fora do código e do seed | Tasks | In Tasks |
-| SECR-02 | P1: Segredos fora do código e do seed | Tasks | In Tasks |
+| SECR-01 | P1: Segredos fora do código e do seed | Execute | Implementing |
+| SECR-02 | P1: Segredos fora do código e do seed | Execute | Implementing |
 | SECR-03 | P1: Segredos fora do código e do seed | Tasks | In Tasks |
 | SECR-04 | P1: Segredos fora do código e do seed | Tasks | In Tasks |
 | SECR-05 | P1: Segredos fora do código e do seed | Tasks | In Tasks |
