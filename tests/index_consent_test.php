@@ -35,3 +35,17 @@ assertTrue(
     && strpos($src, 'name="generoSexual"') !== false,
     'FACE-03: manual name, age, email, education, gender remain'
 );
+
+$landing = file_get_contents(
+    dirname(__DIR__) . DIRECTORY_SEPARATOR . 'index.html'
+);
+$termNeedle = 'destinam-se exclusivamente para a pesquisa e serão mantidos em sigilo';
+assertTrue(
+    strpos($src, $termNeedle) !== false,
+    'CONS-01: index.php shows the term text from index.html'
+);
+
+assertTrue(
+    strpos($landing, './index.php') !== false,
+    'SURF-05: index.html still links to index.php'
+);

@@ -19,8 +19,8 @@ assertTrue(
 
 assertTrue(
     !boundQueryAllowed(
-        "INSERT INTO resposta (nome) VALUES ('" . "OR 1=1" . "')",
-        array('OR 1=1')
+        "INSERT INTO resposta (nome) VALUES (?, 'OR 1=1')",
+        array('alice')
     ),
     'SQLI-01: quoted interpolation in SQL is rejected'
 );

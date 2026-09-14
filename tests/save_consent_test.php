@@ -30,6 +30,17 @@ assertTrue(
     preg_match(
         "/executeBound\s*\(\s*'INSERT INTO `resposta`[^']*`aceitou_termo`[^']*\?/",
         $salvar
-    ),
-    'CONS-03: resposta insert binds aceitou_termo'
+    )
+    && preg_match(
+        "/executeBound\s*\(\s*'INSERT INTO `resposta`[\s\S]*?array\s*\([\s\S]*?,\s*1\s*\)/",
+        $salvar
+    )
+    && strpos($salvar, '`Codigo_G_Exp`') !== false,
+    'CONS-03: resposta insert binds aceitou_termo to 1 and Codigo_G_Exp'
+);
+
+assertSame(
+    200,
+    qpjCaptureInclude('', 'saveData.php'),
+    'edge: saveData.php with no write flag does not run SQL or connect'
 );
