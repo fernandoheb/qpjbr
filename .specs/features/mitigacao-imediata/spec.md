@@ -268,8 +268,8 @@ and validation.
 | CONS-02 | P1: Aceite obrigatório do termo | Execute | Implementing |
 | CONS-03 | P1: Aceite obrigatório do termo | Execute | Implementing |
 | CONS-04 | P1: Aceite obrigatório do termo | Execute | Implementing |
-| XSS-01 | P2: Output sem eco cru da query string | Tasks | In Tasks |
-| XSS-02 | P2: Output sem eco cru da query string | Tasks | In Tasks |
+| XSS-01 | P2: Output sem eco cru da query string | Execute | Implementing |
+| XSS-02 | P2: Output sem eco cru da query string | Execute | Implementing |
 
 **ID format:** `[CATEGORY]-[NUMBER]` (e.g., `SQLI-01`)
 

@@ -33,18 +33,49 @@
 	        </style>
 
 	<?php
-			$aux = $_GET["id"];
-		  	$avanco =          $_GET["avc"];
-			$competicao=       $_GET["cpc"];
-			$mecanica=         $_GET["mca"];
-			$socializacao=     $_GET["scz"];
-			$relacionamento=   $_GET["rlc"];
-			$trabalhoemequipe= $_GET["tbe"];
-			$descoberta=       $_GET["dsc"];
-			$roleplaying=      $_GET["rpg"];
-			$customizacao=     $_GET["ctz"];
-			$escapismo=        $_GET["ecp"];
-                        $flag_resposta=    $_GET["resp"];
+                        function qpjQueryNumber($raw)
+                        {
+                                if (!is_numeric($raw)) {
+                                        return 0;
+                                }
+                                return 0 + $raw;
+                        }
+			$aux = qpjQueryNumber(
+                                isset($_GET["id"]) ? $_GET["id"] : ''
+                        );
+		  	$avanco = qpjQueryNumber(
+                                isset($_GET["avc"]) ? $_GET["avc"] : ''
+                        );
+			$competicao = qpjQueryNumber(
+                                isset($_GET["cpc"]) ? $_GET["cpc"] : ''
+                        );
+			$mecanica = qpjQueryNumber(
+                                isset($_GET["mca"]) ? $_GET["mca"] : ''
+                        );
+			$socializacao = qpjQueryNumber(
+                                isset($_GET["scz"]) ? $_GET["scz"] : ''
+                        );
+			$relacionamento = qpjQueryNumber(
+                                isset($_GET["rlc"]) ? $_GET["rlc"] : ''
+                        );
+			$trabalhoemequipe = qpjQueryNumber(
+                                isset($_GET["tbe"]) ? $_GET["tbe"] : ''
+                        );
+			$descoberta = qpjQueryNumber(
+                                isset($_GET["dsc"]) ? $_GET["dsc"] : ''
+                        );
+			$roleplaying = qpjQueryNumber(
+                                isset($_GET["rpg"]) ? $_GET["rpg"] : ''
+                        );
+			$customizacao = qpjQueryNumber(
+                                isset($_GET["ctz"]) ? $_GET["ctz"] : ''
+                        );
+			$escapismo = qpjQueryNumber(
+                                isset($_GET["ecp"]) ? $_GET["ecp"] : ''
+                        );
+                        $flag_resposta = qpjQueryNumber(
+                                isset($_GET["resp"]) ? $_GET["resp"] : ''
+                        );
 
 
 
@@ -61,7 +92,7 @@
 			$nomes="";
 			foreach ($arrayNomeFatores as $value){
 
-					$customQuery='SELECT  `descricao`, `nomeFantasia` FROM `subfator` WHERE id = '.$i.'+1';
+					$customQuery='SELECT  `descricao`, `nomeFantasia` FROM `subfator` WHERE id = '.(int)$i.'+1';
 					$query2 = $puxaBD->selectCustomQuery($customQuery);
 					$queryLP = $query2->fetch_assoc();
 
@@ -513,7 +544,7 @@ alert("oi");
 					$teste = $arrayFatores[$i]/$positivos;
 				$teste = ($maiorValor/$positivos)-$teste;
 				if ($teste <= 0.05) {
-					$customQuery='SELECT  `descricao`, `nomeFantasia` FROM `subfator` WHERE id = '.$i.'+1';
+					$customQuery='SELECT  `descricao`, `nomeFantasia` FROM `subfator` WHERE id = '.(int)$i.'+1';
 					$query2 = $puxaBD->selectCustomQuery($customQuery);
 					$queryLP = $query2->fetch_assoc();
 					$nomeFantasia = $queryLP["nomeFantasia"];
@@ -773,7 +804,7 @@ Detalhes(0,1);
 
 				if ($teste <= 0.05) {
 
-					$customQuery='SELECT  `descricao`, `nomeFantasia` FROM `subfator` WHERE id = '.$i.'+1';
+					$customQuery='SELECT  `descricao`, `nomeFantasia` FROM `subfator` WHERE id = '.(int)$i.'+1';
 					$query2 = $puxaBD->selectCustomQuery($customQuery);
 					$queryLP = $query2->fetch_assoc();
 
@@ -807,7 +838,7 @@ Detalhes(0,1);
 					    </script>
 					';
 				}
-									$customQuery='SELECT  `descricao`, `nomeFantasia` FROM `subfator` WHERE id = '.$i.'+1';
+									$customQuery='SELECT  `descricao`, `nomeFantasia` FROM `subfator` WHERE id = '.(int)$i.'+1';
 					$query2 = $puxaBD->selectCustomQuery($customQuery);
 									$queryLP = $query2->fetch_assoc();
 

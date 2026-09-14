@@ -488,9 +488,9 @@ T16 -> T17
 
 **Done when**:
 
-- [ ] Echo de `$_GET` passa por escape ou `is_numeric`
-- [ ] Score não numérico não entra em SQL nem em `<script>`
-- [ ] Gate: `php tests/run.php` — 36 testes
+- [x] Echo de `$_GET` passa por escape ou `is_numeric`
+- [x] Score não numérico não entra em SQL nem em `<script>`
+- [x] Gate: `php tests/run.php` — 36 testes
 
 **Tests**: unit
 **Gate**: quick
