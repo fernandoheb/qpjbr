@@ -40,9 +40,18 @@
                 $array = mysql_fetch_object(mysql_query($sql1));
                 $idnext = $array->id + 1;*/
 
-	$query1 = $puxaBD->selectCustomQuery(
-                "INSERT INTO `resposta`(`nome`, `email`, `genero`, `escolaridade`, `idade`,`Codigo_G_Exp`) "
-                . "VALUES ( '$nome','$email','$genero','$escolaridade','$idade','$Codigo_Experimental')");
+	$puxaBD->executeBound(
+                'INSERT INTO `resposta`(`nome`, `email`, `genero`, `escolaridade`, `idade`,`Codigo_G_Exp`) VALUES (?, ?, ?, ?, ?, ?)',
+                'ssssss',
+                array(
+                    $nome,
+                    $email,
+                    $genero,
+                    $escolaridade,
+                    $idade,
+                    $Codigo_Experimental
+                )
+        );
 	
 
 		//$query1 = $puxaBD->selectCustomQuery('INSERT INTO `resposta`( `email`) VALUES ("'.utf8_decode($_POST["email"]).'")');	
@@ -59,12 +68,23 @@
                 foreach ($_POST as $indice => $val) {
                     try {
                         if (substr($indice,0,strpos($indice,"_")) == "questao" ) {
-                          //    echo "<BR> true";
-                                $questaoid = substr($indice,strpos($indice,"_")+1,strlen($indice));
-                            //    echo "<br> $questaoid";
-                              //  echo "<br> $val";
-                             $query1 = $puxaBD->selectCustomQuery('INSERT INTO `resp_quest`( `questaoid`,`respostaid`,`valorResposta`) '
-                                     . 'VALUES ('.intval($questaoid).','.intval($id).','.intval($val).')');	
+                                $questaoid = substr(
+                                    $indice,
+                                    strpos($indice, "_") + 1
+                                );
+                                $questaoid = requireInt(
+                                    $questaoid,
+                                    'questaoid'
+                                );
+                                $valorResposta = requireInt(
+                                    $val,
+                                    'valorResposta'
+                                );
+                                $puxaBD->executeBound(
+                                    'INSERT INTO `resp_quest`( `questaoid`,`respostaid`,`valorResposta`) VALUES (?, ?, ?)',
+                                    'iii',
+                                    array($questaoid, $id, $valorResposta)
+                                );
                         }
                     } catch (Exception $e){consoleLog($e);}
                         
@@ -170,8 +190,27 @@
 
 		$xid = array($avanco, $escapismo,  $socializacao, $competicao, $customizacao,  $relacionamento, $mecanica, $roleplaying, $trabalhoequipe, $descoberta, $idnext);
             //    echo "xid = $xid[0] <br>";
-		$insereSubfatores_query = $puxaBD->selectCustomQuery('INSERT INTO `soma`(`idResposta`, `avanco`, `competicao`, `mecanica`, `socializacao`, `relacionamento`, `trabalhoemequipe`, `descoberta`, `roleplaying`, `customizacao`, `escapismo`, `achiever`, `relatedness`, `imersao`, `majoritario`) 		'
-                        . 'VALUES ("'.$idnext.'", "'.$avanco.'","'.$competicao.'","'.$mecanica.'","'.$socializacao.'","'.$relacionamento.'","'.$trabalhoequipe.'","'.$descoberta.'","'.$roleplaying.'","'.$customizacao.'","'.$escapismo.'","'.$realizacao.'","'.$social.'","'.$imersao.'","'.$nomeFatorPrincipal.'")');
+		$puxaBD->executeBound(
+                        'INSERT INTO `soma`(`idResposta`, `avanco`, `competicao`, `mecanica`, `socializacao`, `relacionamento`, `trabalhoemequipe`, `descoberta`, `roleplaying`, `customizacao`, `escapismo`, `achiever`, `relatedness`, `imersao`, `majoritario`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                        'iddddddddddddds',
+                        array(
+                            $idnext,
+                            $avanco,
+                            $competicao,
+                            $mecanica,
+                            $socializacao,
+                            $relacionamento,
+                            $trabalhoequipe,
+                            $descoberta,
+                            $roleplaying,
+                            $customizacao,
+                            $escapismo,
+                            $realizacao,
+                            $social,
+                            $imersao,
+                            $nomeFatorPrincipal
+                        )
+                );
 
 	//	$insereSubfatores_query = $puxaBD->selectCustomQuery('INSERT INTO `soma`(`idResposta`, `avanco`, `competicao`, `mecanica`, `socializacao`, `relacionamento`, `trabalhoemequipe`, `descoberta`, `roleplaying`, `customizacao`, `escapismo`, `achiever`, `relatedness`, `imersao`, `majoritario`) VALUES ('.$idResposta["id"].','.$avanco.','.$competicao.','.$mecanica.','.$socializacao.','.$relacionamento.','.$trabalhoequipe.','.$descoberta.','.$roleplaying.','.$customizacao.','.$escapismo.','.$realizacao.','.$social.','.$imersao.',"'.$nomeFatorPrincipal.'")');
 	//	

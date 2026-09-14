@@ -175,10 +175,10 @@ T16 -> T17
 
 **Done when**:
 
-- [ ] Nenhum `$_POST` entra na string SQL do ramo `salvar`
-- [ ] IDs de questão e valor passam por `requireInt`
-- [ ] Tabelas escritas continuam `resposta`, `resp_quest`, `soma`
-- [ ] Gate: `php tests/run.php` — 11 testes
+- [x] Nenhum `$_POST` entra na string SQL do ramo `salvar`
+- [x] IDs de questão e valor passam por `requireInt`
+- [x] Tabelas escritas continuam `resposta`, `resp_quest`, `soma`
+- [x] Gate: `php tests/run.php` — 11 testes
 
 **Tests**: unit
 **Gate**: quick
