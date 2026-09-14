@@ -159,7 +159,12 @@ Class Crud {
      private $DB_DATABASE = 'bd'; */
 
    function conn() {
-      $this->conn = new mysqli($this->DB_HOSTNAME, $this->DB_USERNAME, $this->DB_PASSWORD, $this->DB_DATABASE, 3306);
+      try {
+         $this->conn = new mysqli($this->DB_HOSTNAME, $this->DB_USERNAME, $this->DB_PASSWORD, $this->DB_DATABASE, 3306);
+      } catch (mysqli_sql_exception $e) {
+         echo "Não foi possível conectar ao banco";
+         exit;
+      }
       if (mysqli_connect_errno()) {
          echo "Não foi possível conectar ao banco";
          exit;
