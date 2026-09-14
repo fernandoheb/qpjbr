@@ -259,7 +259,7 @@ and validation.
 | SURF-01 | P1: Superfície morta fora do git | Tasks | In Tasks |
 | SURF-02 | P1: Superfície morta fora do git | Tasks | In Tasks |
 | SURF-03 | P1: Superfície morta fora do git | Tasks | In Tasks |
-| SURF-04 | P1: Superfície morta fora do git | Tasks | In Tasks |
+| SURF-04 | P1: Superfície morta fora do git | Execute | Implementing |
 | SURF-05 | P1: Superfície morta fora do git | Tasks | In Tasks |
 | SURF-06 | P1: Superfície morta fora do git | Tasks | In Tasks |
 | FACE-01 | P1: Facebook Login desligado | Tasks | In Tasks |

@@ -357,9 +357,9 @@ T16 -> T17
 
 **Done when**:
 
-- [ ] `directoryBrowse enabled="false"`
-- [ ] Regra de bloqueio para `.cfg` e `.sql`
-- [ ] Gate: `php tests/run.php`
+- [x] `directoryBrowse enabled="false"`
+- [x] Regra de bloqueio para `.cfg` e `.sql`
+- [x] Gate: `php tests/run.php`
 
 **Tests**: none
 **Gate**: build
