@@ -6,6 +6,122 @@ $endereco = './index.php';
 $resultado = './resultado.php';
 $salvar = './saveData.php';
 
+function loadDotEnv($path)
+{
+   $out = array();
+   if (!is_readable($path)) {
+      return $out;
+   }
+   $lines = file($path, FILE_IGNORE_NEW_LINES);
+   foreach ($lines as $line) {
+      $line = trim($line);
+      if ($line === '' || (isset($line[0]) && $line[0] === '#')) {
+         continue;
+      }
+      $pos = strpos($line, '=');
+      if ($pos === false) {
+         continue;
+      }
+      $key = trim(substr($line, 0, $pos));
+      $val = trim(substr($line, $pos + 1));
+      $val = trim($val, "\"'");
+      $out[$key] = $val;
+      putenv($key . '=' . $val);
+   }
+   return $out;
+}
+
+function envOr($key, $fallback)
+{
+   $val = getenv($key);
+   if ($val !== false) {
+      return $val;
+   }
+   return $fallback;
+}
+
+function resolveDbConfig()
+{
+   $parsed = loadDotEnv(dirname(__FILE__) . '/.env');
+   $fromFile = array();
+   $cfg = dirname(__FILE__) . '/bd.cfg';
+   if (is_readable($cfg)) {
+      $json = json_decode(file_get_contents($cfg), true);
+      if (is_array($json)) {
+         $fromFile = $json;
+      }
+   }
+   $legacyDb = '';
+   if (isset($fromFile['DB_EXPERIMENTAL'])) {
+      $legacyDb = $fromFile['DB_EXPERIMENTAL'];
+   } elseif (isset($fromFile['DB_DATABASE'])) {
+      $legacyDb = $fromFile['DB_DATABASE'];
+   }
+   return array(
+      'DB_HOSTNAME' => envOr(
+         'DB_HOSTNAME',
+         isset($fromFile['DB_HOSTNAME']) ? $fromFile['DB_HOSTNAME'] : 'localhost'
+      ),
+      'DB_USERNAME' => envOr(
+         'DB_USERNAME',
+         isset($fromFile['DB_USERNAME']) ? $fromFile['DB_USERNAME'] : ''
+      ),
+      'DB_PASSWORD' => envOr(
+         'DB_PASSWORD',
+         isset($fromFile['DB_PASSWORD']) ? $fromFile['DB_PASSWORD'] : ''
+      ),
+      'DB_DATABASE' => envOr(
+         'DB_DATABASE',
+         isset($parsed['DB_DATABASE']) ? $parsed['DB_DATABASE'] : $legacyDb
+      ),
+   );
+}
+
+function boundQueryAllowed($sql, $values)
+{
+   if (!is_string($sql) || $sql === '' || !is_array($values)) {
+      return false;
+   }
+   if (strpos($sql, '?') === false) {
+      return false;
+   }
+   if (substr_count($sql, '?') !== count($values)) {
+      return false;
+   }
+   if (strpos($sql, "'") !== false || strpos($sql, '"') !== false) {
+      return false;
+   }
+   return true;
+}
+
+function httpBadRequest($detail)
+{
+   header('HTTP/1.1 400 Bad Request');
+   http_response_code(400);
+   echo $detail;
+   exit;
+}
+
+function requireInt($raw, $name)
+{
+   if ($raw === null || $raw === false || $raw === '') {
+      httpBadRequest('invalid ' . $name);
+   }
+   $int = filter_var($raw, FILTER_VALIDATE_INT);
+   if ($int === false) {
+      httpBadRequest('invalid ' . $name);
+   }
+   return $int;
+}
+
+function requireConsent($raw)
+{
+   if ($raw !== '1' && $raw !== 1) {
+      httpBadRequest('consent required');
+   }
+   return 1;
+}
+
 /*
   $endereco = 'http://localhost/git/questionarioLocal/index.php';
   $resultado = 'http://localhost/git/questionarioLocal/resultado3c.php';
@@ -23,23 +139,18 @@ Class Crud {
    var $conn;
    var $bind_param;
    var $bind_param_values;
-   private $url = "bd.cfg";
+   private $url = ".env";
    private $DB_HOSTNAME = '';
    private $DB_USERNAME = '';
    private $DB_PASSWORD = '';
    private $DB_DATABASE = '';
 
    function __construct() {
-
-
-      $file = file_get_contents($this->url);
-      $contents = utf8_encode($file);
-      $results = json_decode($contents, true);
-
+      $results = resolveDbConfig();
       $this->DB_HOSTNAME = $results['DB_HOSTNAME'];
       $this->DB_USERNAME = $results['DB_USERNAME'];
       $this->DB_PASSWORD = $results['DB_PASSWORD'];
-      $this->DB_DATABASE = $results['DB_EXPERIMENTAL'];
+      $this->DB_DATABASE = $results['DB_DATABASE'];
    }
 
    /* 	private $DB_HOSTNAME = 'localhost';
@@ -134,6 +245,27 @@ Class Crud {
       $conn = $this->conn;
       $w = $conn->query($this->custom);
       return $w;
+   }
+
+   function executeBound($sql, $types, $values)
+   {
+      if (!boundQueryAllowed($sql, $values)) {
+         throw new InvalidArgumentException(
+            'SQL must use bound placeholders'
+         );
+      }
+      if (!is_string($types) || strlen($types) !== count($values)) {
+         throw new InvalidArgumentException('bind types mismatch');
+      }
+      $conn = $this->conn();
+      $stmt = $conn->prepare($sql);
+      if ($stmt === false) {
+         throw new RuntimeException('prepare failed');
+      }
+      $stmt->bind_param($types, ...$values);
+      $ok = $stmt->execute();
+      $stmt->close();
+      return $ok;
    }
 
    function getLastID() {

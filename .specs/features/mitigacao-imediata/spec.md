@@ -246,7 +246,7 @@ and validation.
 
 | Requirement ID | Story | Phase | Status |
 | -------------- | ----- | ----- | ------ |
-| SQLI-01 | P1: Escrita sem SQL injection | Tasks | In Tasks |
+| SQLI-01 | P1: Escrita sem SQL injection | Execute | Implementing |
 | SQLI-02 | P1: Escrita sem SQL injection | Tasks | In Tasks |
 | SQLI-03 | P1: Escrita sem SQL injection | Execute | Implementing |
 | SQLI-04 | P1: Escrita sem SQL injection | Tasks | In Tasks |

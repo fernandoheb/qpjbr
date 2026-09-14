@@ -123,9 +123,9 @@ T16 -> T17
 
 **Done when**:
 
-- [ ] `executeBound` só aceita SQL com `?` na mesma conta de values
-- [ ] `requireInt` em lixo dispara 400 (testado via captura de status)
-- [ ] Gate: `php tests/run.php` — 6 testes
+- [x] `executeBound` só aceita SQL com `?` na mesma conta de values
+- [x] `requireInt` em lixo dispara 400 (testado via captura de status)
+- [x] Gate: `php tests/run.php` — 6 testes
 
 **Tests**: unit
 **Gate**: quick
