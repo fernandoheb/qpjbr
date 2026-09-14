@@ -201,9 +201,9 @@ T16 -> T17
 
 **Done when**:
 
-- [ ] Os três ramos só usam `?` no SQL
-- [ ] `id`/`respostaId` passam por `requireInt`
-- [ ] Gate: `php tests/run.php` — 14 testes
+- [x] Os três ramos só usam `?` no SQL
+- [x] `id`/`respostaId` passam por `requireInt`
+- [x] Gate: `php tests/run.php` — 14 testes
 
 **Tests**: unit
 **Gate**: quick
@@ -226,9 +226,9 @@ T16 -> T17
 
 **Done when**:
 
-- [ ] Query string numérica inválida vira HTTP 400
-- [ ] Arquivo não contém `s3nh4r00t`
-- [ ] Gate: `php tests/run.php` — 16 testes
+- [x] Query string numérica inválida vira HTTP 400
+- [x] Arquivo não contém `s3nh4r00t`
+- [x] Gate: `php tests/run.php` — 16 testes
 
 **Tests**: unit
 **Gate**: quick

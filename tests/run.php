@@ -41,20 +41,9 @@ function assertSame($expected, $actual, $message = '')
     );
 }
 
-function qpjCaptureStatus($phpCode)
+function qpjRunProbe($script)
 {
-    $root = dirname(__DIR__);
     $probe = tempnam(sys_get_temp_dir(), 'qpj');
-    $script = "<?php\n"
-        . "http_response_code(200);\n"
-        . "register_shutdown_function(function () {\n"
-        . "    fwrite(STDOUT, \"\\nSTATUS=\" . http_response_code());\n"
-        . "});\n"
-        . "require "
-        . var_export($root . DIRECTORY_SEPARATOR . 'functions.inc2.php', true)
-        . ";\n"
-        . $phpCode
-        . "\n";
     file_put_contents($probe, $script);
     $cmd = escapeshellarg(PHP_BINARY)
         . ' -d display_errors=0 '
@@ -67,6 +56,37 @@ function qpjCaptureStatus($phpCode)
         return intval($match[1]);
     }
     return 0;
+}
+
+function qpjStatusPrefix()
+{
+    return "<?php\n"
+        . "http_response_code(200);\n"
+        . "register_shutdown_function(function () {\n"
+        . "    fwrite(STDOUT, \"\\nSTATUS=\" . http_response_code());\n"
+        . "});\n";
+}
+
+function qpjCaptureStatus($phpCode)
+{
+    $root = dirname(__DIR__);
+    $script = qpjStatusPrefix()
+        . "require "
+        . var_export($root . DIRECTORY_SEPARATOR . 'functions.inc2.php', true)
+        . ";\n"
+        . $phpCode
+        . "\n";
+    return qpjRunProbe($script);
+}
+
+function qpjCaptureInclude($setupPhp, $relativeFile)
+{
+    $root = dirname(__DIR__);
+    $script = qpjStatusPrefix()
+        . "chdir(" . var_export($root, true) . ");\n"
+        . $setupPhp . "\n"
+        . "include " . var_export($relativeFile, true) . ";\n";
+    return qpjRunProbe($script);
 }
 
 $files = glob(__DIR__ . DIRECTORY_SEPARATOR . '*_test.php');

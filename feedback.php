@@ -1,30 +1,31 @@
 <?php
 	include 'functions.inc2.php';
-	
-	$puxaBD = new Crud();
-	$puxaBD->conn();
-	echo "loading...";
+
 	if(!isset($_GET['tempo'])){exit();}
-	/*	$DB_HOSTNAME = 'localhost';
-		$DB_USERNAME = 'root';
-		$DB_PASSWORD = 's3nh4r00t';
-		$DB_DATABASE = 'brunopra_yee';
-		$link=mysql_connect($DB_HOSTNAME,$DB_USERNAME,$DB_PASSWORD);
-		$dbs = mysql_select_db($DB_DATABASE); */
-		
-	$id = @$_GET['id'];
-	$tempo = @$_GET['tempo'];
-	$tempod = @$_GET['tempodetalhes'];
-	$graf1 = @$_GET['graf1'];
-	$graf2 = @$_GET['graf2'];
-	$graf3 = @$_GET['graf3'];
-	$totaldetalhes = @$_GET['totaldetalhes'];
-	$detalhesabertos = @$_GET['detalhesabertos'];
+
+	$rawId = isset($_GET['id']) ? $_GET['id'] : '';
+	$id = requireInt($rawId, 'id');
+	$tempo = requireInt($_GET['tempo'], 'tempo');
+	$rawTempod = isset($_GET['tempodetalhes']) ? $_GET['tempodetalhes'] : '';
+	$tempod = requireInt($rawTempod, 'tempodetalhes');
+	$rawGraf1 = isset($_GET['graf1']) ? $_GET['graf1'] : '';
+	$graf1 = requireInt($rawGraf1, 'graf1');
+	$rawGraf2 = isset($_GET['graf2']) ? $_GET['graf2'] : '';
+	$graf2 = requireInt($rawGraf2, 'graf2');
+	$rawGraf3 = isset($_GET['graf3']) ? $_GET['graf3'] : '';
+	$graf3 = requireInt($rawGraf3, 'graf3');
+	$rawTotal = isset($_GET['totaldetalhes']) ? $_GET['totaldetalhes'] : '';
+	$totaldetalhes = requireInt($rawTotal, 'totaldetalhes');
+	$rawAbertos = isset($_GET['detalhesabertos']) ? $_GET['detalhesabertos'] : '';
+	$detalhesabertos = requireInt($rawAbertos, 'detalhesabertos');
 	$detalhesabertos--;
 	$aux = $detalhesabertos."/".$totaldetalhes;
+	echo "loading...";
 	echo $aux;
 
-	$sql = "insert into feedback (id,tempo,graf1,graf2,graf3,tempodetalhes,detalhesabertos) values ($id,$tempo,$graf1,$graf2,$graf3,$tempod,'$aux')";
-	//$result = mysql_query($sql);
-	$result = $puxaBD->selectCustomQuery($sql);
-?>
+	$puxaBD = new Crud();
+	$puxaBD->executeBound(
+		'insert into feedback (id,tempo,graf1,graf2,graf3,tempodetalhes,detalhesabertos) values (?, ?, ?, ?, ?, ?, ?)',
+		'iiiiiis',
+		array($id, $tempo, $graf1, $graf2, $graf3, $tempod, $aux)
+	);

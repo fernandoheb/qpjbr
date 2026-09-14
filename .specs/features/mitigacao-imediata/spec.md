@@ -247,12 +247,12 @@ and validation.
 | Requirement ID | Story | Phase | Status |
 | -------------- | ----- | ----- | ------ |
 | SQLI-01 | P1: Escrita sem SQL injection | Execute | Implementing |
-| SQLI-02 | P1: Escrita sem SQL injection | Tasks | In Tasks |
+| SQLI-02 | P1: Escrita sem SQL injection | Execute | Implementing |
 | SQLI-03 | P1: Escrita sem SQL injection | Execute | Implementing |
 | SQLI-04 | P1: Escrita sem SQL injection | Execute | Implementing |
 | SECR-01 | P1: Segredos fora do código e do seed | Execute | Implementing |
 | SECR-02 | P1: Segredos fora do código e do seed | Execute | Implementing |
-| SECR-03 | P1: Segredos fora do código e do seed | Tasks | In Tasks |
+| SECR-03 | P1: Segredos fora do código e do seed | Execute | Implementing |
 | SECR-04 | P1: Segredos fora do código e do seed | Tasks | In Tasks |
 | SECR-05 | P1: Segredos fora do código e do seed | Tasks | In Tasks |
 | SURF-01 | P1: Superfície morta fora do git | Tasks | In Tasks |
