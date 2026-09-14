@@ -37,7 +37,11 @@
 
 		<?php
 
-		$aux = $_GET["id"];
+		$aux = htmlspecialchars(
+                        isset($_GET["id"]) ? $_GET["id"] : '',
+                        ENT_QUOTES,
+                        'UTF-8'
+                );
 
 		?>
 

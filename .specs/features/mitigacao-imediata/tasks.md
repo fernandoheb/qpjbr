@@ -513,9 +513,9 @@ T16 -> T17
 
 **Done when**:
 
-- [ ] `id` ecoado usa `htmlspecialchars`
-- [ ] `git grep Gerente1*` vazio no tree
-- [ ] Gate: `php tests/run.php` — 38 testes
+- [x] `id` ecoado usa `htmlspecialchars`
+- [x] `git grep Gerente1*` vazio no tree
+- [x] Gate: `php tests/run.php` — 38 testes
 
 **Tests**: unit
 **Gate**: quick

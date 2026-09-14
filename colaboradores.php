@@ -3,9 +3,6 @@
 	include 'functions.inc2.php';
 		$puxaBD = new Crud();
 		$puxaBD->conn();
-	/*	$link = mysql_connect('localhost','root','Gerente1*');
-		mysql_select_db('brunopra_yee', $link);
-		mysql_query("SET NAMES 'utf8'", $link);*/
                
 ?>
 
