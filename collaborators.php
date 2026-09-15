@@ -1,9 +1,9 @@
 <?php
-    header('Content-Type: text/html; charset=utf-8');
-	include 'functions.inc2.php';
-		$puxaBD = new Crud();
-		$puxaBD->conn();
-               
+header('Content-Type: text/html; charset=utf-8');
+require_once __DIR__ . '/src/bootstrap.php';
+$puxaBD = new Crud();
+$puxaBD->conn();
+$puxaBD->setCharSet();
 ?>
 
 <!DOCTYPE html>
@@ -50,6 +50,31 @@
 }
 .box {
 	background:#FFF;
+}
+.collaborators-grid {
+	display: flex;
+	flex-wrap: wrap;
+	padding: 0 15px;
+}
+.collaborators-grid > [class*="col-"] {
+	display: flex;
+	margin-bottom: 24px;
+}
+.collaborator-card {
+	width: 100%;
+	border-radius: 20px;
+	padding: 16px 20px 8px;
+	text-align: left;
+}
+.collaborator-card img {
+	margin: 20px auto;
+	display: block;
+	border-radius: 40px;
+	width: 80px;
+	height: 80px;
+}
+.collaborator-card h3 {
+	text-align: center;
 }
   </style>
 
@@ -134,59 +159,31 @@
 
 
 		<center><h2>Colaboradores</h2></center>
-		<table width="100%">
-
-		        <?php
-				$result = $puxaBD->selectCustomQuery("Select * from colaboradores");
-				
-    
-    $num = 0;
-	
-    
-	while($row = $result ->fetch_object()){
-    $num++;
-    if($num%2 == 1){
-    echo'
-
-		    <td>
-		<div class="col-md-2">&nbsp</div>
-		<div class="col-md-3 box effect6">
-		  <center> <img style="margin-top: 20px; margin-bottom: 20px;" src="img/fotos/'.$row->Foto.'" width="80px" height="80px"></img><br>
-		        <h3 align="center">'.utf8_decode($row->Name).'</h3>
-		        </center>
-
-		        <p align="left">
-		            <b>Formação:</b> '.utf8_decode($row->Formacao).'<br>
-		               <b> Afiliação:</b> '.utf8_decode($row->Afiliacao).'<br>
-		                    <b>Lattes:</b> <a target="_blank" href="'.$row->lattes.'">'.utf8_decode($row->lattes).'</a><br>
-		                   <b> Email:</b> '.utf8_decode($row->email).'<br>
-		        </p>
+		<div class="row collaborators-grid">
+		<?php
+		$result = $puxaBD->selectCustomQuery("Select * from colaboradores");
+		while ($row = $result->fetch_object()) {
+			$name = htmlspecialchars($row->Name, ENT_QUOTES, 'UTF-8');
+			$formacao = htmlspecialchars($row->Formacao, ENT_QUOTES, 'UTF-8');
+			$afiliacao = htmlspecialchars($row->Afiliacao, ENT_QUOTES, 'UTF-8');
+			$lattes = htmlspecialchars($row->lattes, ENT_QUOTES, 'UTF-8');
+			$email = htmlspecialchars($row->email, ENT_QUOTES, 'UTF-8');
+			$foto = htmlspecialchars($row->Foto, ENT_QUOTES, 'UTF-8');
+			echo '<div class="col-xs-12 col-sm-6 col-md-4">'
+				. '<div class="box effect6 collaborator-card">'
+				. '<img src="img/fotos/' . $foto . '" alt="' . $name . '">'
+				. '<h3>' . $name . '</h3>'
+				. '<p>'
+				. '<b>Formação:</b> ' . $formacao . '<br>'
+				. '<b>Afiliação:</b> ' . $afiliacao . '<br>'
+				. '<b>Lattes:</b> <a target="_blank" rel="noopener noreferrer" href="'
+				. $lattes . '">' . $lattes . '</a><br>'
+				. '<b>Email:</b> ' . $email . '<br>'
+				. '</p>'
+				. '</div></div>';
+		}
+		?>
 		</div>
-';} else { echo'
-<div class="col-md-2">&nbsp</div>
-		<div class="col-md-3 box effect6">
-		  <center> <img style="margin-top: 20px; margin-bottom: 20px;" src="img/fotos/'.$row->Foto.'"width="80px" height="80px"></img><br>
-		        <h3 align="center">'.utf8_decode($row->Name).'</h3></center>
-		        <p align="left">
-		            <b>Formação:</b> '.utf8_decode($row->Formacao).'<br>
-		               <b> Afiliação:</b> '.utf8_decode($row->Afiliacao).'<br>
-		                    <b>Lattes:</b> <a target="_blank" href="'.utf8_decode($row->lattes).'">'.utf8_decode($row->lattes).'</a><br>
-		                   <b> Email:</b> '.utf8_decode($row->email).'<br>
-                                       
-		        </p>
-		</div>
-
-		</div>
-		<div class="col-md-2">&nbsp</div>
-
-
-</td><tr>
-    <td colspan="5"><br><br></td>
-    <tr>
-
-';}}?>
-
-</table>
 
 
 <br>
@@ -198,8 +195,6 @@
 
 	O laboratório é composto por profissionais de diferentes áreas (e.g. Computação, Ensino, Engenharia, Educação, e Psicologia) funcionando como um pólo de divulgação dos avanços científicos da área em nível nacional e internacional. E o principal ramo de atuação é o desenvolvimento e aplicação de técnicas computacionais para resolver problemas educacionais.
 </p></td></tr>
-<tr><td style="text-align:center"><strong > Cadastre seu grupo de pesquisa e utilize nossa ferramenta para classificar seus usuarios</strong></td></tr>
-<tr><td style="text-align:center"><strong > <a href="./gerenciargrupo.php"> Cadastrar ou gerenciar meu grupo</a></strong></td></tr></table>
 <br>
 
                 <a href="https://www.sites.google.com/site/labcaed/home" target="_blank">
