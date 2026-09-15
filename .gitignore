@@ -59,3 +59,13 @@ Estrutura_banco_de_dados.sql
 Network Trash Folder
 Temporary Items
 .apdisk
+package-lock.json
+package.json
+playwright.config.js
+
+.cursor/
+.specs/
+.tlc/
+
+trabalhos resultantes/ontology game model.pdf
+GAPS.md

@@ -31,11 +31,14 @@ function loadDotEnv($path)
    return $out;
 }
 
-function envOr($key, $fallback)
+function envOr($key, $fallback, $parsed = array())
 {
    $val = getenv($key);
    if ($val !== false) {
       return $val;
+   }
+   if (array_key_exists($key, $parsed)) {
+      return $parsed[$key];
    }
    return $fallback;
 }
@@ -43,36 +46,18 @@ function envOr($key, $fallback)
 function resolveDbConfig()
 {
    $parsed = loadDotEnv(dirname(__FILE__) . '/.env');
-   $fromFile = array();
-   $cfg = dirname(__FILE__) . '/bd.cfg';
-   if (is_readable($cfg)) {
-      $json = json_decode(file_get_contents($cfg), true);
-      if (is_array($json)) {
-         $fromFile = $json;
-      }
-   }
-   $legacyDb = '';
-   if (isset($fromFile['DB_EXPERIMENTAL'])) {
-      $legacyDb = $fromFile['DB_EXPERIMENTAL'];
-   } elseif (isset($fromFile['DB_DATABASE'])) {
-      $legacyDb = $fromFile['DB_DATABASE'];
-   }
    return array(
       'DB_HOSTNAME' => envOr(
-         'DB_HOSTNAME',
-         isset($fromFile['DB_HOSTNAME']) ? $fromFile['DB_HOSTNAME'] : 'localhost'
+         'DB_HOSTNAME', 'localhost', $parsed
       ),
       'DB_USERNAME' => envOr(
-         'DB_USERNAME',
-         isset($fromFile['DB_USERNAME']) ? $fromFile['DB_USERNAME'] : ''
+         'DB_USERNAME', '', $parsed
       ),
       'DB_PASSWORD' => envOr(
-         'DB_PASSWORD',
-         isset($fromFile['DB_PASSWORD']) ? $fromFile['DB_PASSWORD'] : ''
+         'DB_PASSWORD', '', $parsed
       ),
       'DB_DATABASE' => envOr(
-         'DB_DATABASE',
-         isset($parsed['DB_DATABASE']) ? $parsed['DB_DATABASE'] : $legacyDb
+         'DB_DATABASE', 'qpjbr', $parsed
       ),
    );
 }
@@ -122,11 +107,6 @@ function requireConsent($raw)
    return 1;
 }
 
-/*
-  $endereco = 'http://localhost/git/questionarioLocal/index.php';
-  $resultado = 'http://localhost/git/questionarioLocal/resultado3c.php';
-  $salvar = 'http://localhost/git/questionarioLocal/saveData3.php'; */
-
 Class Crud {
 
    var $tabela;
@@ -139,7 +119,6 @@ Class Crud {
    var $conn;
    var $bind_param;
    var $bind_param_values;
-   private $url = ".env";
    private $DB_HOSTNAME = '';
    private $DB_USERNAME = '';
    private $DB_PASSWORD = '';
@@ -152,11 +131,6 @@ Class Crud {
       $this->DB_PASSWORD = $results['DB_PASSWORD'];
       $this->DB_DATABASE = $results['DB_DATABASE'];
    }
-
-   /* 	private $DB_HOSTNAME = 'localhost';
-     private $DB_USERNAME = 'root';
-     private $DB_PASSWORD = '';
-     private $DB_DATABASE = 'bd'; */
 
    function conn() {
       try {
@@ -171,83 +145,36 @@ Class Crud {
       }
       return $this->conn;
    }
-
-   function selectDB($DB) {
-      return $this->conn->select_db($DB);
-   }
-
+   
    function setCharSet() {
       consoleLog("Charset utf8mb4");
-      //$this->conn->set_charset("utf8");
        $this->conn->set_charset("utf8mb4");
-       //$this->conn->query("set names utf8");
-      
-       if ( TRUE !==  $this->conn->set_charset( 'utf8' ) )
-    throw new \Exception(  $this->conn->errno );
-
-      if ( TRUE !==  $this->conn->query( 'SET collation_connection = @@collation_database;' ) )
-    throw new \Exception(  $this->conn->errno );
-      
+       if ( TRUE !==  $this->conn->set_charset( 'utf8mb4' ) ) {
+         throw new \Exception(  $this->conn->errno );
+       }
+       if ( TRUE !==  $this->conn->query( 'SET collation_connection = @@collation_database;' ) ) {
+         throw new \Exception(  $this->conn->errno );
+       }
    }
 
    function close() {
       return $this->conn->close();
    }
 
-   function insert($campos, $tabela, $valores) {
-      $this->campos = $campos;
-      $this->valores = $valores;
-      $this->tabela = $tabela;
-      $this->query = "insert into $this->tabela ($this->campos) values ($this->valores)";
-      $conn = $this->conn;
-      $query = $conn->prepare($this->query);
-      return $query;
-   }
-
-   function fastInsert($campos, $tabela, $valores) {
-      $this->campos = $campos;
-      $this->valores = $valores;
-      $this->tabela = $tabela;
-      $this->query = "insert into $this->tabela ($this->campos) values ($this->valores)";
-      $conn = $this->conn;
-      $w = $conn->query($this->query);
-      return $w;
-   }
-
-   function update($valores, $tabela, $condicao) {
-      $this->valores = $valores;
-      $this->condicao = $condicao;
-      $this->tabela = $tabela;
-      $this->query = "update $this->tabela set $this->valores where $this->condicao";
-      $conn = $this->conn;
-      $query = $conn->prepare($this->query);
-      return $query;
-   }
-
-   function selectArrayConditions($campos, $tabela, $condicao) {
-      $this->campos = implode(",", $campos);
-      $this->tabela = $tabela;
-      $this->condicao = $condicao;
-      $conn = $this->conn;
-      $query = $conn->prepare("SELECT $this->campos FROM $this->tabela WHERE $this->condicao");
-      return $query;
-   }
-
    function selectArrayPostWhere($campos, $tabela, $condicao) {
+      // why: callers pass campos as a string and condicao already
+      // including WHERE / ORDER BY (see saveData.php).
       $this->campos = $campos;
       $this->tabela = $tabela;
       $this->condicao = $condicao;
       $this->query = "select $this->campos from $this->tabela $this->condicao";
       $conn = $this->conn;
-      $w = $conn->query($this->query);
-      return $w;
+      return $conn->query($this->query);
    }
 
    function selectCustomQuery($custom) {
-      $this->custom = $custom;
       $conn = $this->conn;
-      $w = $conn->query($this->custom);
-      return $w;
+      return $conn->query($custom);
    }
 
    function executeBound($sql, $types, $values)
@@ -273,56 +200,12 @@ Class Crud {
 
    function getLastID() {
       $conn = $this->conn;
-      $w = $conn->insert_id;
-      return $w;
+      return $conn->insert_id;
    }
 
-   function getAffectedRows() {
-      $conn = $this->conn;
-      $num = $conn->affected_rows;
-      return $num;
-   }
 
-   function selectArray($campos) {
-      $this->campos = $campos;
-      $this->query = "select $this->campos from $this->tabela";
-      $w = mysql_query("$this->query");
-      return $w;
-   }
 
-   function selectDistinct($campos, $tabela, $condicao) {
-      $this->campos = $campos;
-      $this->condicao = $condicao;
-      $this->tabela = $tabela;
-      $this->query = "SELECT DISTINCT $this->campos from $this->tabela $this->condicao";
-      $conn = $this->conn;
-      $w = $conn->query($this->query);
-      return $w;
-   }
-
-   function delete($tabela, $condicao) {
-      $this->condicao = $condicao;
-      $this->tabela = $tabela;
-      $this->query = "delete from $this->tabela where $this->condicao";
-      $conn = $this->conn;
-      $w = $conn->query($this->query);
-      return $w;
-   }
-
-   function setMsgSucesso($msg) {
-      $this->sucess = $msg;
-   }
-
-   function setMsgErro($msg) {
-      $this->error = $msg;
-   }
-
-   function real_escape_string($var) {
-      $this->value = $var;
-      $conn = $this->conn;
-      $w = $conn->real_escape_string($this->value);
-      return $w;
-   }
+  
 
    function maiorValor(array $maiorValor) {
       $nomeCorreto = array("Avanco" => "Avanco", "Competicao" => "Competicao", "Mecanica" => "Mecanica", "Socializacao" => "Socializacao", "Relacionamento" => "Relacionamento", "Trabalhoequipe" => "Trabalho em equipe", "Descoberta" => "Descoberta", "Roleplaying" => "Role Playing", "Customizacao" => "Customizacao", "Escapismo" => "Escapismo", "empate" => "Empate");
@@ -374,13 +257,6 @@ function qpjDistanciaDoTopo($valor, $maiorValor, $positivos)
    return ($maior / $positivos) - ($valor / $positivos);
 }
 
-//General functions
-function fetchAll($result) {
-   while ($row = $result->fetch_assoc()) {
-      $results_array[] = $row;
-   }
-   return $results_array;
-}
 
 function consoleLog($texto) {
    echo "<script> console.log('$texto'); </script>";

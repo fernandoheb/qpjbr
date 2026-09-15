@@ -925,22 +925,13 @@ Detalhes(0,1);
 
 
 
-		        <table height="100%" width="100%" style="background: #5E8296;">
-<td> &nbsp </td>
-		            <td style="background: #5E8296;"> &nbsp </td>
-		            <td  style="background: #5E8296;float:right;">
-                    <h2 style="color:white;background: #5E8296;"><br>Compartilhe o   <br>
-                        seu Perfil com   <br>
-                            seus amigos!   </h2>
-                            <br>
-		            </td><td width="15%" height="100%" style="background: #FFFFFF;">
-		    <div class="fb-share-button" data-href="<?php echo $url; ?>" data-layout="box_count"></div>
-		    </td>
-<td   style="background: #5E8296;text-align:left; height:100%;" width="40%">
-    <h2 style="color:white;background: #5E8296;"> &nbsp Veja mais<br> &nbsp detalhes abaixo</h2>
-</td>
-<tr>
-		    </table>
+		        <div class="text-center">
+		            <div style="display:inline-block;background:#5E8296;padding:12px 28px;">
+		                <h2 style="color:white;margin:0;font-size:22px;line-height:1.3;">
+		                    Veja mais<br>detalhes abaixo
+		                </h2>
+		            </div>
+		        </div>
 
 
 <br><br>
@@ -1112,8 +1103,14 @@ Detalhes(0,1);
 
 
 					echo '
-					<p><center><table width="80%"><td>
-					"*O presente questionário pretende avaliar uma teoria do Arquétipo de Jogador (Tipologia de Jogador ou Player Type) derivada do Teste de Bartle (https://pt.wikipedia.org/wiki/Arqu%C3%A9tipos_de_Bartle), estando ainda em sua fase inicial. Por isso, o resultado aqui apresentado são aproximações da combinação dos subcomponentes com maior pontuação no questionário. Gostaríamos de registrar e salientar o caráter experimental da ferramenta aqui oferecida. Caso opte por receber posteriormente uma avaliação do perfil de jogador mais precisa ficaremos contentes em lhe enviar após uma análise ampla com o público brasileiro."
+					<p><center><table width="80%"><td style="text-align:justify;">
+					*O presente questionário avalia as motivações para jogar com base no artigo
+					<a href="https://nickyee.com/pubs/Yee%20-%20Motivations%20(2007).pdf" target="_blank" rel="noopener noreferrer">Motivations for Play in Online Games</a>,
+					de Nick Yee, e na adaptação validada para o português-brasileiro publicada em
+					<a href="https://sol.sbc.org.br/index.php/sbie/article/view/41721/41491" target="_blank" rel="noopener noreferrer">QPJ-BR: Questionário para Identificação de Perfis de Jogadores para o Português-Brasileiro</a>.
+					O resultado aqui apresentado são aproximações da combinação dos subcomponentes com maior pontuação no questionário.
+					Gostaríamos de registrar e salientar o caráter experimental da ferramenta aqui oferecida.
+					Caso opte por receber posteriormente uma avaliação do perfil de jogador mais precisa, ficaremos contentes em lhe enviar após uma análise ampla com o público brasileiro.
 					</td></table></center></p>
 					';
 				?>

@@ -1,0 +1,6 @@
+<FilesMatch "^(\.env|\.env\..+)$">
+    Require all denied
+</FilesMatch>
+<FilesMatch "\.cfg$">
+    Require all denied
+</FilesMatch>

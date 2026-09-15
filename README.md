@@ -51,7 +51,7 @@ qpjbr/
 ├── colaboradores.php           Página com a equipe de pesquisa
 ├── geraimg.php                 Geração de imagem de resultado para compartilhamento social
 ├── functions.inc2.php          Núcleo do backend (classe Crud + funções auxiliares)
-├── bd.cfg                      Configuração de conexão com o banco
+├── .env.example                Modelo de variáveis de conexão (copiar para `.env`)
 ├── qpjbr.sql                   Schema/dump de dados mais recente
 └── trabalhos resultantes/      Artigo científico e trabalhos derivados
 ```

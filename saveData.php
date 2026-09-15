@@ -36,11 +36,6 @@
                     $idade = utf8_decode($_POST["idade"]);
             }
 
-                /*$link = mysql_connect("localhost","root","");
-                mysql_select_db("brunopra_yee");
-                $sql1="select * from `resposta` order by id DESC";
-                $array = mysql_fetch_object(mysql_query($sql1));
-                $idnext = $array->id + 1;*/
 
 	$puxaBD->executeBound(
                 'INSERT INTO `resposta`(`nome`, `email`, `genero`, `escolaridade`, `idade`,`Codigo_G_Exp`, `aceitou_termo`) VALUES (?, ?, ?, ?, ?, ?, ?)',
@@ -220,8 +215,8 @@
 		//die($insereSubfatores_query);
 		$nomeCorreto= array("avanco"=>"Avanco","competicao"=>"Competicao","mecanica"=>"Mecanica","socializacao"=>"Socializacao","relacionamento"=>"Relacionamento","trabalhoequipe"=>"Trabalho em equipe","descoberta"=>"Descoberta","roleplaying"=>"Role Playing","customizacao"=>"Customizacao","escapismo"=>"Escapismo");
 
-
-		$puxaSubfatorBanco = $puxaBD->selectArrayPostWhere("*","`subfator`"," WHERE `subfator`='".$nomeTipoJogador."'");// Pega do banco buscando o valor referente na array de valores pelo perfil de maior resultado;
+		// Pega do banco buscando o valor referente na array de valores pelo perfil de maior resultado
+		$puxaSubfatorBanco = $puxaBD->selectArrayPostWhere("*","`subfator`"," WHERE `subfator`='".$nomeTipoJogador."'");
 			$valoresSubfator = $puxaSubfatorBanco->fetch_assoc();
 
 

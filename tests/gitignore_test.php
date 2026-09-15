@@ -26,6 +26,7 @@ assertTrue(
 
 $trackedPaths = array(
     'teste/',
+    'bd.cfg',
     'CurPhpVersion.php',
     'adminMeusAnuncios.inc.php',
     'vendor/jquery-file-upload/server/php/',
@@ -51,8 +52,9 @@ assertTrue(
     strpos($web, 'directoryBrowse enabled="false"') !== false
     && strpos($web, 'fileExtension=".cfg"') !== false
     && strpos($web, 'fileExtension=".sql"') !== false
+    && strpos($web, 'segment=".env"') !== false
     && preg_match('/allowed="false"/', $web),
-    'SURF-04: IIS listing off and .cfg/.sql blocked'
+    'SURF-04: IIS listing off and .cfg/.sql/.env blocked'
 );
 
 $gaps = file_get_contents($root . DIRECTORY_SEPARATOR . 'GAPS.md');
