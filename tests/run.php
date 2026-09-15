@@ -72,7 +72,11 @@ function qpjCaptureStatus($phpCode)
     $root = dirname(__DIR__);
     $script = qpjStatusPrefix()
         . "require "
-        . var_export($root . DIRECTORY_SEPARATOR . 'functions.inc2.php', true)
+        . var_export(
+            $root . DIRECTORY_SEPARATOR . 'src'
+            . DIRECTORY_SEPARATOR . 'bootstrap.php',
+            true
+        )
         . ";\n"
         . $phpCode
         . "\n";

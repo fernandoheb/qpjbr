@@ -1,5 +1,9 @@
 <?php
-$seed = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'qpjbr.sql';
+$seed = dirname(__DIR__)
+    . DIRECTORY_SEPARATOR
+    . 'sql'
+    . DIRECTORY_SEPARATOR
+    . 'qpjbr.sql';
 $src = file_get_contents($seed);
 
 assertTrue(

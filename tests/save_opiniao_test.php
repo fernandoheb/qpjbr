@@ -1,15 +1,21 @@
 <?php
-$saveFile = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'saveData.php';
-$src = file_get_contents($saveFile);
-$src = preg_replace('!/\*.*?\*/!s', '', $src);
-$src = preg_replace('!//.*$!m', '', $src);
-
-preg_match(
-    '/if\s*\(\s*isset\(\$_GET\["concordo"\]\)\s*\)\s*\{(.*)$/s',
-    $src,
-    $match
+$opinion = file_get_contents(
+    dirname(__DIR__)
+    . DIRECTORY_SEPARATOR
+    . 'api'
+    . DIRECTORY_SEPARATOR
+    . 'save-opinion.php'
 );
-$opinioes = isset($match[1]) ? $match[1] : '';
+$disagree = file_get_contents(
+    dirname(__DIR__)
+    . DIRECTORY_SEPARATOR
+    . 'api'
+    . DIRECTORY_SEPARATOR
+    . 'save-disagreement.php'
+);
+$opinioes = preg_replace('!/\*.*?\*/!s', '', $opinion . "\n" . $disagree);
+$opinioes = preg_replace('!//.*$!m', '', $opinioes);
+
 preg_match_all(
     "/executeBound\s*\(\s*'([^']+)'/",
     $opinioes,
@@ -18,11 +24,11 @@ preg_match_all(
 $joined = implode("\n", $sqls[1]);
 
 assertTrue(
-    count($sqls[1]) === 3
+    count($sqls[1]) === 2
     && strpos($joined, '$_POST') === false
     && !preg_match('/\$[a-zA-Z_]/', $joined)
-    && substr_count($joined, '?') >= 8,
-    'SQLI-01: concordo, nconcordo, perfilIdentificado use bound ? only'
+    && substr_count($joined, '?') >= 5,
+    'SQLI-01: opinion and disagreement use bound ? only'
 );
 
 assertTrue(
@@ -32,7 +38,7 @@ assertTrue(
 );
 
 assertTrue(
-    substr_count($joined, 'INSERT INTO `concordo`') === 2
+    substr_count($joined, 'INSERT INTO `concordo`') === 1
     && substr_count($joined, 'INSERT INTO `nconcordo`') === 1,
     'SQLI-04: opinion branches still write concordo and nconcordo'
 );

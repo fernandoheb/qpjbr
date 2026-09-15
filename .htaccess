@@ -4,3 +4,5 @@
 <FilesMatch "\.cfg$">
     Require all denied
 </FilesMatch>
+
+DirectoryIndex index.html index.php

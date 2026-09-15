@@ -1,7 +1,11 @@
 <?php
 $functionsFile = dirname(__DIR__)
     . DIRECTORY_SEPARATOR
-    . 'functions.inc2.php';
+    . 'src'
+    . DIRECTORY_SEPARATOR
+    . 'Db'
+    . DIRECTORY_SEPARATOR
+    . 'Crud.php';
 $src = file_get_contents($functionsFile);
 preg_match(
     '/function conn\(\)\s*\{(.*?)\n   function /s',

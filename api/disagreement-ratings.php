@@ -1,5 +1,5 @@
 <?php
-include 'functions.inc2.php';
+require_once dirname(__DIR__) . '/src/bootstrap.php';
 $rawId = isset($_GET['id']) ? $_GET['id'] : '';
 $id = requireInt($rawId, 'id');
 echo "loading...";

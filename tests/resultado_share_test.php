@@ -1,5 +1,9 @@
 <?php
-require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'functions.inc2.php';
+require_once dirname(__DIR__)
+    . DIRECTORY_SEPARATOR
+    . 'src'
+    . DIRECTORY_SEPARATOR
+    . 'bootstrap.php';
 
 assertSame(
     3.5,
@@ -29,7 +33,7 @@ assertSame(
 );
 
 $src = file_get_contents(
-    dirname(__DIR__) . DIRECTORY_SEPARATOR . 'resultado.php'
+    dirname(__DIR__) . DIRECTORY_SEPARATOR . 'result.php'
 );
 assertTrue(
     strpos($src, 'qpjSomaPositivos') !== false

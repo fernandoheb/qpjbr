@@ -1,14 +1,11 @@
 <?php
-$saveFile = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'saveData.php';
+$saveFile = dirname(__DIR__)
+    . DIRECTORY_SEPARATOR
+    . 'api'
+    . DIRECTORY_SEPARATOR
+    . 'save-response.php';
 $src = file_get_contents($saveFile);
-preg_match(
-    '/if\s*\(\s*isset\(\$_GET\["salvar"\]\)\s*\)\s*\{(.*?)'
-    . 'if\s*\(\s*isset\(\$_GET\["concordo"\]\)/s',
-    $src,
-    $match
-);
-$salvar = isset($match[1]) ? $match[1] : '';
-$salvar = preg_replace('!/\*.*?\*/!s', '', $salvar);
+$salvar = preg_replace('!/\*.*?\*/!s', '', $src);
 $salvar = preg_replace('!//.*$!m', '', $salvar);
 
 preg_match_all(

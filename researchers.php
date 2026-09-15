@@ -1,3 +1,3 @@
 <?php
-$qpjMode = 'default';
+$qpjMode = 'researchers';
 require __DIR__ . '/pages/questionnaire.php';

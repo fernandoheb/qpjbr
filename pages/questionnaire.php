@@ -1,18 +1,31 @@
 <?php
-	include 'functions.inc2.php';
+
+	require_once dirname(__DIR__) . '/src/bootstrap.php';
+	if (!isset($qpjMode)) {
+		$qpjMode = 'default';
+	}
+	setlocale(LC_ALL, 'pt_BR.UTF8');
+        //database connection
 	$puxaBD = new Crud();
 	$puxaBD->conn();
-	$name = null;
+	$puxaBD->setCharSet();
+        //Variáveis que vem quando se faz o login  com o facebook        
+        //Facebook Login
+        $name = null;
 	$email = null;
 	$gender = null;
-	$cod_grupo_exp = null;
-	$eh_um_teste = '';
-	if(isset($_GET["teste"])){
-		$eh_um_teste = "checked = true";
-	}
-
+        //código do grupo experimental
+        //identtyfier code 
+        $cod_grupo_exp = null;
 	if(isset($_GET["codgrp"])){
-		$cod_grupo_exp = $_GET["codgrp"];
+		$cod_grupo_exp = ($qpjMode === 'researchers')
+			? $_GET["codgrp"]
+			: strtoupper($_GET["codgrp"]);
+	}
+        //get variable to allow fast test - "it is a test"
+	$eh_um_teste = '';
+        if(isset($_GET["teste"])){
+		$eh_um_teste = "checked = true";
 	}
 ?>
 
@@ -30,7 +43,7 @@
 		<title>Questionário do jogador</title>
 		<!-- start: META -->
 		<!--[if IE]><meta http-equiv='X-UA-Compatible' content="IE=edge,IE=9,IE=8,chrome=1" /><![endif]-->
-		<meta charset="utf-8" />
+		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -72,16 +85,7 @@
 
 
 
-	        step = 0;
-	        function callalert(){
-	        vartemp = setTimeout(alertstep, 1000);
-	        }
-	        function alertstep(){
-	        if(step == 2){swal('Perguntas de importância','Responda as questões da seção seguinte pensando na importância que você confere ao que é perguntado ou afirmado.');}
-	        if(step == 4){swal('Perguntas gerais','Para finalizar, responda algumas questões gerais sobre gosto, frequência e interesse.');}
-	        if(step == 3){swal('Perguntas de gosto e frequência','Responda as questões da seção seguinte pensando no quanto você gosta dos itens enunciados e com que frequência você faz as ações perguntadas.');}
-	        }
-
+//Funcao de debug (aparentemente)
     function dump(arr,level) {
 	var dumped_text = "";
 	if(!level) level = 0;
@@ -106,7 +110,6 @@
 	}
 	return dumped_text;
 }
-
 
 
 
@@ -253,6 +256,21 @@
 												</div>
 
 											</div>
+											<div class="row">
+												<div class="col-md-12">
+													<p style="text-align:justify">
+												Os dados coletados por meio deste questionário destinam-se exclusivamente para a pesquisa e serão mantidos em sigilo.
+
+												A sua participação envolve responder o questionário de caracterização dos perfis de jogadores. Todos os seus dados serão mantido confidenciais e serão utilizados somente para os fins da pesquisa de forma acumulada, mantendo sempre o seu nome em sigilo. Você pode se recusar a participar do estudo ou retirar seu consentimento a qualquer momento, sem precisar justificar. Se você estiver de acordo com este termo, nós gostaríamos que você aceitasse participar e se compremeter a dizer a verdade ao questionário a seguir.
+													</p>
+													<div class="form-group">
+														<label>
+															<input type="checkbox" name="aceitou_termo" id="aceitou_termo" value="1" />
+															Li e aceito o termo de aceitação e confidencialidade
+														</label>
+													</div>
+												</div>
+											</div>
 											<p>
 												<a href="javascript:void(0)" class="pop" data-content="Todos os dados coletados por meio deste questionário destinam-se exclusivamente para a pesquisa e todas as informações serão mantidos em sigilo absoluto." data-title="Não se preocupe!" data-placement="top" data-toggle="popover">
 													Porque você quer minhas informações?
@@ -275,7 +293,7 @@
 
 
 											<div class="center  margin-top-20">
-											<button class="btn btn-primary next-step btn-wide " onclick="if(document.getElementById('escolaridade').value){step = 2;callalert();}">
+											<button type="button" id="btnContinuar" class="btn btn-primary next-step btn-wide " disabled onclick="if(document.getElementById('escolaridade').value){step = 2;}">
 												Continuar <i class="fa fa-arrow-circle-right"></i>
 											</button>
 											</div>
@@ -305,7 +323,7 @@
 																	</a>
 																</td>
 																	<td>
-																		<a href="javascript:void(0)" class="pop" data-content="Para que jogar e acabar com a partida correndo se podemos explorar, conhecer e encontrar coisas escondidas? Ei!! Aquilo ali é um baú?" data-title="Explorador" data-placement="top" data-toggle="popover">
+																		<a href="javascript:void(0)" class="pop" data-content="Para que jogar e acabar com a partida correndo se podemos explorar, conhecer e encontrar coisas escondidas? Ei!! Aquilo ali é um baÃº?" data-title="Explorador" data-placement="top" data-toggle="popover">
 																		<img src="./img/personalidade/10.png" style="max-height:110px; width:auto;min-width:auto;max-width:100%;" width="auto" alt="Explorador">
 																		<p><strong>Explorador</strong></p>
 																		</a>
@@ -313,7 +331,7 @@
 																</tr>
 																<tr>
 																	<td>
-																		<a href="javascript:void(0)" class="pop"  data-content="Números, otimização, padronização, análises... Esses são os amigos que eu preciso pra me sair cada vez melhor" data-title="Estrategista" data-placement="top" data-toggle="popover">
+																		<a href="javascript:void(0)" class="pop"  data-content="NÃºmeros, otimização, padronização, análises... Esses são os amigos que eu preciso pra me sair cada vez melhor" data-title="Estrategista" data-placement="top" data-toggle="popover">
 																		<img src="./img/personalidade/7.png" style="max-height:110px; width:auto;min-width:auto;max-width:100%;" width="auto" alt="Estrategista">
 																		<p><strong>Estrategista</strong></p>
 																		</a>
@@ -387,11 +405,15 @@ Responda as questões da seção seguinte pensando na importância que você con
 <h3 style="display: inline;">Perguntas de importância</h3>
 
 										<br></br>
+<div class="alert alert-info sessao-intro text-left" role="note">
+<strong>Perguntas de importância</strong>
+<p>Responda as questões da seção seguinte pensando na importância que você confere ao que é perguntado ou afirmado.</p>
+</div>
 
 							<?php
 								$bloco = '<div id="step-valorStep"><div class="row"><div class="col-md-12"><div class="text-center">';
-								$footer = '<div class="form-group"><button class="btn btn-primary back-step btn-wide pull-left" onclick="step = step - 1;"><i class="fa fa-circle-arrow-left"></i> Voltar</button>
-								<button class="btn btn-primary next-step btn-wide pull-right" onclick="step = step + 1;callalert();">Próximo <i class="fa fa-arrow-circle-right"></i></button></div></div></div></div></div>';
+								$footer = '<div class="form-group"><button class="btn btn-primary back-step btn-wide pull-left"><i class="fa fa-circle-arrow-left"></i> Voltar</button>
+								<button class="btn btn-primary next-step btn-wide pull-right">Próximo <i class="fa fa-arrow-circle-right"></i></button></div></div></div></div></div>';
 
 
 
@@ -404,10 +426,11 @@ Responda as questões da seção seguinte pensando na importância que você con
 								$aux = $queryLP["max"];
 
 
-
+                                                                     //ficar atento a mudanças no banco. Quando o select não for associativo       
 								$customQuery='SELECT  `questao` . * ,  `escala`. * FROM `questao` INNER JOIN `escala` ON `questao`.`escalaId` = `escala`.`id` WHERE exibir = 1 ORDER BY ordem ASC';
 
 								$query2 = $puxaBD->selectCustomQuery($customQuery);
+
 
 								$step=2;
 								$respostaId=1;
@@ -419,11 +442,12 @@ Responda as questões da seção seguinte pensando na importância que você con
                                                                    //  consoleLog("respID".$respostaId);
                                                                        //   if($queryLP["codspss"]==2440){
 
+								
 
                                                                          //    }
 
                                                                          if($respostaId==10){$respostaId++;} //<h3>'. utf8_encode($queryLP["questao"]).'</h3>
-								consoleLog("questao ID ".$queryLP[0]) ;
+								// consoleLog("questao ID ".$queryLP[0]) ;
 								echo '
 																
 										<div class="container-fluid container-fullw bg-white">
@@ -431,31 +455,31 @@ Responda as questões da seção seguinte pensando na importância que você con
 													<div class="col-md-6" style="margin:0 auto; float: none!important">
 														<div class="panel panel-transparent">
 															<div class="panel-heading">
-																<h3>'. utf8_encode($queryLP[1]).'</h3>
+																<h3>'. $queryLP[1].'</h3>
 															</div>
 															<div class="larguraFixa" style="margin:0 auto; float: none!important">
 																<div class="panel-body" style="text-align:left!important">
 																	<div class="radio clip-radio radio-primary">
                                                                                                                                        
-																	<input type="radio" id="alt5_'.$queryLP[0] .'" name="questao_'.$queryLP[0] .'"  value="2">
+																	<input type="radio" id="alt5_'.$queryLP[0] .'" name="questao_'.$queryLP[0] .'"  value="2" >
 																	<label for="alt5_'.$queryLP[0] .'">
-																	<strong>'. utf8_encode($queryLP[16]) /*utf8_encode($queryLP["alt5"])*/ .'</strong>																		</label>																	</div>
+																	<strong>'.$queryLP[17] /*utf8_encode($queryLP["alt5"])*/ .'</strong>																		</label>																	</div>
 																	<div class="radio clip-radio radio-primary">
 																	<input type="radio" id="alt4_'.$queryLP[0] .'" name="questao_'.$queryLP[0] .'"  value="1" '.$eh_um_teste.'>
 																	<label for="alt4_'.$queryLP[0] .'">
-																	<strong>'. utf8_encode($queryLP[15]) .'</strong>																		</label>																	</div>
+																	<strong>'.$queryLP[16] .'</strong>																		</label>																	</div>
 																	<div class="radio clip-radio radio-primary">
 																	<input type="radio" id="alt3_'.$queryLP[0] .'" name="questao_'.$queryLP[0] .'" value="0">
 																	<label for="alt3_'.$queryLP[0] .'">
-																	<strong>'. utf8_encode($queryLP[14]) .'</strong>																		</label>																	</div>
+																	<strong>'. $queryLP[15] .'</strong>																		</label>																	</div>
 																	<div class="radio clip-radio radio-primary">
 																	<input type="radio" id="alt2_'.$queryLP[0] .'" name="questao_'.$queryLP[0] .'"  value="-1">
 																	<label for="alt2_'.$queryLP[0] .'">
-																	<strong>'. utf8_encode($queryLP[13]) .'</strong>																		</label>																	</div>
+																	<strong>'. $queryLP[14] .'</strong>																		</label>																	</div>
 																	<div class="radio clip-radio radio-primary">
 																		<input type="radio" id="alt1_'.$queryLP[0] .'" name="questao_'.$queryLP[0] .'" value="-2">
 																		<label for="alt1_'.$queryLP[0] .'">
-																			<strong>'. utf8_encode($queryLP[12]) .'</strong>
+																			<strong>'. $queryLP[13] .'</strong>
 																		</label>
 																	</div>
 																</div>
@@ -485,14 +509,20 @@ Responda as questões da seção seguinte pensando na importância que você con
                                                                                 echo '
                                                                                      <a href="#" title="Perguntas de Gosto e Frequência" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="Responda as questões da seção seguinte pensando no quanto você gosta dos itens enunciados e com que
                                                                                      frequência você faz as ações perguntadas"><img src="img/quest.png" style="margin-bottom: 12px; margin-right: 6px;" width="30px" height="30px"></img></a><h3 style="display: inline;">Perguntas de Gosto e Frequência</h3>
-
+<div class="alert alert-info sessao-intro text-left" role="note">
+<strong>Perguntas de gosto e frequência</strong>
+<p>Responda as questões da seção seguinte pensando no quanto você gosta dos itens enunciados e com que frequência você faz as ações perguntadas.</p>
+</div>
                                                                                                           ';  }
                                                                                                           if($step == 4){
                                                                          echo '
                                                                         <a href="#" title="Perguntas gerais" data-toggle="popover" data-placement="top" data-trigger="hover" data-content="Para finalizar responda agora algumas questões gerais sobre gosto, frequência e interesse.">
                                                                             <img src="img/quest.png" style="margin-bottom: 12px; margin-right: 6px;" width="30px" height="30px"></img>
                                                                         </a><h3 style="display: inline;">Perguntas gerais</h3>
-
+<div class="alert alert-info sessao-intro text-left" role="note">
+<strong>Perguntas gerais</strong>
+<p>Para finalizar, responda algumas questões gerais sobre gosto, frequência e interesse.</p>
+</div>
                                                                         '; 									}
 									}
 
@@ -501,7 +531,7 @@ Responda as questões da seção seguinte pensando na importância que você con
 							?>
 
 											<div class="form-group">
-											<button class="btn btn-primary btn-o back-step btn-wide pull-left" onclick="step = step - 1;">
+											<button class="btn btn-primary btn-o back-step btn-wide pull-left">
 												<i class="fa fa-circle-arrow-left"></i> Voltar
 											</button>
 											<button class="submitQuestionario btn btn-primary btn-o btn-wide pull-right" >
@@ -579,128 +609,141 @@ Responda as questões da seção seguinte pensando na importância que você con
 
 		aux = -1;
 
-			jQuery(document).ready(function() {
+		jQuery(document).ready(function() {
 				Main.init();
 				FormWizard.init();
 
-				$('.pop').on('click', function (e) {
-      						 $('.pop').not(this).popover('hide');
-    							});
+                    function qpjSyncContinuar() {
+                        var box = document.getElementById('aceitou_termo');
+                        var btn = document.getElementById('btnContinuar');
+                        if (!box || !btn) {
+                            return;
+                        }
+                        btn.disabled = !box.checked;
+                    }
+                    $('#aceitou_termo').on('change', qpjSyncContinuar);
+                    qpjSyncContinuar();
+
+                    $('.pop').on('click', function (e) {
+      			$('.pop').not(this).popover('hide');
+                    });
 
 		    $(".submitQuestionario").click(function (e) {
-		    var nulo = 0;
-                   /* // var frm = document.forms[0];
-                        var frm =z;
-                        var numElementos = frm.elements.length;
-                        for(var i = 0; i < numElementos; i++){
-                            if(i < numElementos-1){
-                                if(frm.elements[i].type =="radio") {
-                                    if (frm.elements[i].checked){
-                                        dadoUsuario += frm.elements[i].name+"=" +
-                                        encodedURIComponent(frm.elements[i].value)+"&";  
-                          }}} } */
-		
-        /*    for(i=13;i<=78;i=i+5){
-                        if($('#form').context.forms[0][i].checked==false){
-                            nulo = 0;
+                        if (!$("#aceitou_termo").prop("checked")) {
+                            swal("Oops...","Você precisa aceitar o termo para enviar.","error");
+                            return;
                         }
-		    }
-                    for(i=85;i<=150;i=i+5){
-                        if($('#form').context.forms[0][i].checked==false){
-                            nulo = 0;
-                        }
-		    }
-	//	    console.log($('#form').serialize());
-                    for(i=157;i<=196;i=i+5){
-                  //  console.log(i);
-                        if($('#form').context.forms[0][i].checked==false){
-                           nulo = 0;
-                        }
-                    }*/
-		    console.log($('#form').serialize());
-                    console.log("nulo " +nulo);
-					
-		    if(nulo==1)  {
-                        swal("Oops...","Você não selecionou nenhuma alternativa!","error");
-                    } else  {
-                        $.ajax({
-							
-					//url : 'http://localhost/git/questionarioLocal/saveData.php?salvar',					
-					url : './saveData.php?salvar',					
-					
-					dataType: 'json',
-					data: $('#form').serialize(),  //transforma o formulario em 1 linha por meio do POST para a pagina da URL; *dados do ajax para o php
-					type: 'POST',
-					/*beforeSend: function(){
-						//$(".next-step").click();
-						console.log("ajax before");
-					},*/
-					success: function(result){
-						 var xid = result;
-						 console.log(xid);
-						resultado(xid);
-						console.log("sucesso");
-					},
-                                        error:function(){
-                                            console.log("algo deu erraro na recupera?o dos dados..")
+                        //Validação dos componentes radio buttons
+                        var nulo = 0;
+ //                       console.log("valor de nulo no começo "+nulo);
+                            var frm = document.forms[0];                                                                               
+                            var elementoAntigo="";                            
+                            var numElementos = frm.elements.length;
+                            console.log("numelementos "+numElementos);
+                            for(var i = 0; i < numElementos; i++){
+                                if(elementoAntigo == frm.elements[i].name){
+                                    //console.log(elementoAntigo +" == "+frm.elements[i].name);
+                                    //console.log(nulo);
+                                        if( nulo ==0){
+                                            console.log("continue");
+                                            continue;
+                                   }
+                                } else {
+                                    elementoAntigo = frm.elements[i].name;
+                                    //console.log("Elemento antiog "+elementoAntigo );
+                                    //console.log("Elemento novo " +frm.elements[i].name);                          
+                                    if( nulo ==1&&frm.elements[i-1].type=="radio"){
+                                       // console.log(frm.elements[i-1].name);
+                                       // console.log("break");
+                                        break;
+                                    }                                            
+                                }
+                                if(i < numElementos-1){
+                                    if(frm.elements[i].type =="radio") {
+                                        nulo =1;                      
+                                        if (frm.elements[i].checked) 
+                                            nulo=0;                                  
                                         }
-		   		});
-                    }   
-        	});
+                                    }
+                                }                      
+                        if(nulo==1)  {
+                            swal("Oops...","Você não selecionou alguma alternativa!","error");
+                        } else  {
+                            $.ajax({
+                                            //url : 'http://localhost/git/questionarioLocal/saveData.php?salvar',					
+                                            url : './api/save-response.php',					
+                                            dataType: 'json',
+                                            data: $('#form').serialize(),  //transforma o formulario em 1 linha por meio do POST para a pagina da URL; *dados do ajax para o php
+                                            type: 'POST',
+                                            /*beforeSend: function(){
+                                                    //$(".next-step").click();
+                                                    console.log("ajax before");
+                                            },*/
+                                            success: function(result){
+                                                resultado(result); 
+                                                //  var xid = result;
+                                                //  console.log(xid);
+                                                //  resultado(xid);
+                                                //  console.log("sucesso");
+                                            },
+                                            error:function(){
+                                                console.log("algo deu erraro na recuperação dos dados..")
+                                            }
+                                    });
+                        }   
+                    });
 
-        	$(".submitConcordo").click(function (e) {
-            	var check = $(this).attr("alt");//pega o atributo alt do ultimo elemento instanciado.
-            	var idResposta = $("#idResposta").val();//recebe  value idResposta quando .val() está vazio.
-				var tipoJogador = $("#resultadoTipoJogador").val();//recebe  value idResposta quando .val() está vazio
+                    $(".submitConcordo").click(function (e) {
+                        var check = $(this).attr("alt");//pega o atributo alt do ultimo elemento instanciado.
+                        var idResposta = $("#idResposta").val();//recebe  value idResposta quando .val() está vazio.
+                                        var tipoJogador = $("#resultadoTipoJogador").val();//recebe  value idResposta quando .val() está vazio
 
-            	$.ajax({
-					url : 'http://localhost/git/questionarioLocal/saveData.php?concordo',
-					type: 'POST',
-					dataType: 'json',
-					data: ({respostaOpinao:check , respostaId:idResposta, respostaTipoJogador:tipoJogador}),
+                        $.ajax({
+                                                //url : 'http://localhost/git/questionarioLocal/saveData.php?concordo',
+                                                url : './api/save-opinion.php?tipo=concordo',
+                                                type: 'POST',
+                                                dataType: 'json',
+                                                data: ({respostaOpinao:check , respostaId:idResposta, respostaTipoJogador:tipoJogador}),
 
-					success: function(dados){
-						$("#myModal").modal('show');
+                                                success: function(dados){
+                                                        $("#myModal").modal('show');
 
-					}
+                                                }
 
-		   		});
+                                        });
 
-        	});
+                    });
 
-			$(".submitPerfilIdentificado").click(function (e) {
-            	var perfilEscolhido = $("#perfilIdentificado").val();//pega o valor digitado pelo usuario
-            	var idResposta = $("#idResposta").val();//recebe  value idResposta quando .val() está vazio.
-				var tipoJogador = $("#resultadoTipoJogador").val();//recebe  value idResposta quando .val() está vazio.
-            	$.ajax({
-					url : 'http://localhost/git/questionarioLocal/saveData.php?perfilIdentificado',
-					type: 'POST',
-					dataType: 'json',
-					data: ({respostaOpinao:perfilEscolhido , respostaId:idResposta, respostaTipoJogador:tipoJogador}),
+                    $(".submitPerfilIdentificado").click(function (e) {
+                        var perfilEscolhido = $("#perfilIdentificado").val();//pega o valor digitado pelo usuario
+                        var idResposta = $("#idResposta").val();//recebe  value idResposta quando .val() está vazio.
+                                        var tipoJogador = $("#resultadoTipoJogador").val();//recebe  value idResposta quando .val() está vazio.
+                        $.ajax({
+                                                //url : 'http://localhost/git/questionarioLocal/saveData.php?perfilIdentificado',
+                                                url : './api/save-opinion.php?tipo=perfilIdentificado',
+                                                type: 'POST',
+                                                dataType: 'json',
+                                                data: ({respostaOpinao:perfilEscolhido , respostaId:idResposta, respostaTipoJogador:tipoJogador}),
 
-					success: function(dados){
-						$("#myModal").modal('show');
-					}
+                                                success: function(dados){
+                                                        $("#myModal").modal('show');
+                                                }
 
-		   		});
+                                        });
 
-        	});
-
-
-			});
-
-			function resultado(xid){
-	console.log("resultado");
-
-	var jarrayFatores= xid;
-	var url = 'http://localhost/git/questionarioLocal/resultado.php?id='+jarrayFatores[10]+'&avc='+jarrayFatores[0]+'&cpc='+jarrayFatores[3]+'&mca='+jarrayFatores[6]+'&scz='+jarrayFatores[2]+'&rlc='+jarrayFatores[5]+'&tbe='+jarrayFatores[8]+'&dsc='+jarrayFatores[9]+'&rpg='+jarrayFatores[7]+'&ctz='+jarrayFatores[4]+'&ecp='+jarrayFatores[1]+'&resp=1';
-
-	window.location.assign(url);
+                    });
 
 
-			}
+                });
 
-			
+                function resultado(xid){
+                    //console.log("resultado");
+                    var jarrayFatores= xid;
+                    //var url = 'http://localhost/git/questionarioLocal/resultado.php?id='+jarrayFatores[10]+'&avc='+jarrayFatores[0]+'&cpc='+jarrayFatores[3]+'&mca='+jarrayFatores[6]+'&scz='+jarrayFatores[2]+'&rlc='+jarrayFatores[5]+'&tbe='+jarrayFatores[8]+'&dsc='+jarrayFatores[9]+'&rpg='+jarrayFatores[7]+'&ctz='+jarrayFatores[4]+'&ecp='+jarrayFatores[1]+'&resp=1';
+                    var url = './result.php?id='+jarrayFatores[10]+'&avc='+jarrayFatores[0]+'&cpc='+jarrayFatores[3]+'&mca='+jarrayFatores[6]+'&scz='+jarrayFatores[2]+'&rlc='+jarrayFatores[5]+'&tbe='+jarrayFatores[8]+'&dsc='+jarrayFatores[9]+'&rpg='+jarrayFatores[7]+'&ctz='+jarrayFatores[4]+'&ecp='+jarrayFatores[1]+'&resp=1';
+                    window.location.assign(url);
+                }
+        		
 		</script>
 		<!-- end: JavaScript Event Handlers for this page --></html>
 		<!-- end: CLIP-TWO JAVASCRIPTS -->

@@ -46,15 +46,15 @@ CREATE TABLE `colaboradores` (
 --
 
 INSERT INTO `colaboradores` (`ID`, `Name`, `Foto`, `Formacao`, `Afiliacao`, `lattes`, `email`, `DATETIME`) VALUES
-(1, 'Fernando R. H. Andrade', 'fernando.jpg', 'Sistemas de Informação', 'Universidade de São Paulo', 'http://lattes.cnpq.br/2225159212201413', '', '2016-10-31 21:29:42'),
+(1, 'Dr. Fernando R. H. Andrade', 'fernando.jpg', 'Sistemas de Informação', 'Universidade de São Paulo', 'http://lattes.cnpq.br/2225159212201413', '', '2016-10-31 21:29:42'),
 (2, 'Guilherme Gomes Ferreira', 'guilherme.jpg', 'Sistemas de Informação', 'Universidade de São Paulo', '', 'ferreiraguilhermeg@gmail.com', '2016-10-31 21:29:42'),
-(3, 'Prof. Dr. Seiji Isotani', 'seiji.png', 'Ciência da Computação', 'Universidade de São Paulo', 'http://lattes.cnpq.br/3030047284254233', 'sisotani@icmc.usp.br', '2016-10-31 21:29:42'),
+(3, 'Dr. Seiji Isotani', 'seiji.png', 'Ciência da Computação', 'Universidade de São Paulo', 'http://lattes.cnpq.br/3030047284254233', 'sisotani@icmc.usp.br', '2016-10-31 21:29:42'),
 (4, 'Dr. Leonardo Brandão Marques ', 'leonardo.jpg', 'Psicologia', 'Universidade de São Paulo', 'http://lattes.cnpq.br/3705407022339177', 'leoprot-pesquisas@yahoo.com.br', '2016-10-31 21:29:42'),
 (5, 'Marco A. T. Schaefer', 'marco.jpg', 'Engenharia de Computação', 'Universidade de São Paulo', '', 'marco.schaefer@usp.br', '2016-10-31 21:29:42'),
-(7, 'Laís Zagatti Pedro', 'lais', 'Sistemas de Informação', 'Universidade de São Paulo', 'http://lattes.cnpq.br/8686219411357003', 'laiszagatti@gmail.com', '2016-10-31 21:29:42'),
+(7, 'MSc. Laís Zagatti Pedro', 'lais.jpg', 'Sistemas de Informação', 'Universidade de São Paulo', 'http://lattes.cnpq.br/8686219411357003', 'laiszagatti@gmail.com', '2016-10-31 21:29:42'),
 (8, 'Bruno Genova Prates', 'bruno.jpg', 'Análise e Desenvolvimento de Sistemas', 'Instituto Federal de São Paulo', NULL, 'brunogenovaprates@gmail.com', '2016-10-31 21:29:42'),
-(9, 'Wilmax Marreiro Cruz', 'wilmax.png', 'Sistemas de Informação', 'Universidade de São Paulo', 'http://lattes.cnpq.br/2450044052712783', 'wilmcruz@icmc.usp.br', '2016-10-31 21:29:42'),
-(10, 'Prof. Dr. Ig I. Bittencourt', 'igbert.jpg', 'Informática - Análise de Sistemas - Administração', 'Universidade Federal de Alagoas', 'http://lattes.cnpq.br/4038730280834132', 'ig.ibert@gmail.com', '2016-10-31 21:29:42');
+(9, 'Dr. Wilmax Marreiro Cruz', 'wilmax.png', 'Sistemas de Informação', 'Universidade de São Paulo', 'http://lattes.cnpq.br/2450044052712783', 'wilmcruz@icmc.usp.br', '2016-10-31 21:29:42'),
+(10, 'Dr. Ig I. Bittencourt', 'igbert.jpg', 'Informática - Análise de Sistemas - Administração', 'Universidade Federal de Alagoas', 'http://lattes.cnpq.br/4038730280834132', 'ig.ibert@gmail.com', '2016-10-31 21:29:42');
 
 -- --------------------------------------------------------
 

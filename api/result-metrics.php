@@ -1,5 +1,5 @@
 <?php
-	include 'functions.inc2.php';
+	require_once dirname(__DIR__) . '/src/bootstrap.php';
 
 	if(!isset($_GET['tempo'])){exit();}
 

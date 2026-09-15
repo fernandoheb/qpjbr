@@ -1,4 +1,5 @@
 <?php
+chdir(dirname(__DIR__));
 $vet[1]=@$_GET["img1"];
 $vet[2]=@$_GET["img2"];
 $vet[3]=@$_GET["img3"];

@@ -1,5 +1,5 @@
 <?php
-$file = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'resultado.php';
+$file = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'result.php';
 $src = file_get_contents($file);
 
 assertTrue(

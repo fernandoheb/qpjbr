@@ -1,5 +1,9 @@
 <?php
-$index = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'index.php';
+$index = dirname(__DIR__)
+    . DIRECTORY_SEPARATOR
+    . 'pages'
+    . DIRECTORY_SEPARATOR
+    . 'questionnaire.php';
 $src = file_get_contents($index);
 
 assertTrue(
@@ -15,7 +19,7 @@ assertTrue(
 );
 
 preg_match(
-    '/\$\("\.submitQuestionario"\)\.click\(function.*?url\s*:\s*[\'"]\.\/saveData\.php\?salvar/s',
+    '/\$\("\.submitQuestionario"\)\.click\(function.*?url\s*:\s*[\'"]\.\/api\/save-response\.php/s',
     $src,
     $click
 );
@@ -24,7 +28,7 @@ assertTrue(
     $handler !== ''
     && strpos($handler, 'aceitou_termo') !== false
     && preg_match('/checked|is\([\'"]:checked[\'"]\)/', $handler),
-    'CONS-02: submit without checkbox does not call saveData.php?salvar'
+    'CONS-02: submit without checkbox does not call save-response'
 );
 
 assertTrue(
@@ -42,7 +46,7 @@ $landing = file_get_contents(
 $termNeedle = 'destinam-se exclusivamente para a pesquisa e serão mantidos em sigilo';
 assertTrue(
     strpos($src, $termNeedle) !== false,
-    'CONS-01: index.php shows the term text from index.html'
+    'CONS-01: questionnaire shows the term text from index.html'
 );
 
 assertTrue(

@@ -1,8 +1,12 @@
 <?php
-$functionsFile = dirname(__DIR__)
+$envFile = dirname(__DIR__)
     . DIRECTORY_SEPARATOR
-    . 'functions.inc2.php';
-$src = file_get_contents($functionsFile);
+    . 'src'
+    . DIRECTORY_SEPARATOR
+    . 'Config'
+    . DIRECTORY_SEPARATOR
+    . 'Env.php';
+$src = file_get_contents($envFile);
 
 assertTrue(
     strpos($src, 'bd.cfg') === false,
@@ -10,8 +14,9 @@ assertTrue(
 );
 
 assertTrue(
-    strpos($src, "loadDotEnv(dirname(__FILE__) . '/.env')") !== false
+    strpos($src, 'loadDotEnv(') !== false
     && strpos($src, 'envOr(') !== false
-    && strpos($src, '$parsed') !== false,
+    && strpos($src, '$parsed') !== false
+    && strpos($src, '.env') !== false,
     'DB config is loaded from .env via loadDotEnv'
 );

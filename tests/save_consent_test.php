@@ -1,15 +1,12 @@
 <?php
-$saveFile = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'saveData.php';
+$saveFile = dirname(__DIR__)
+    . DIRECTORY_SEPARATOR
+    . 'api'
+    . DIRECTORY_SEPARATOR
+    . 'save-response.php';
 $src = file_get_contents($saveFile);
-preg_match(
-    '/if\s*\(\s*isset\(\$_GET\["salvar"\]\)\s*\)\s*\{(.*?)'
-    . 'if\s*\(\s*isset\(\$_GET\["concordo"\]\)/s',
-    $src,
-    $match
-);
-$salvar = isset($match[1]) ? $match[1] : '';
-$salvar = preg_replace('!/\*.*?\*/!s', '', $salvar);
-$salvar = preg_replace('!//.*$!m', '', $salvar);
+$src = preg_replace('!/\*.*?\*/!s', '', $src);
+$src = preg_replace('!//.*$!m', '', $src);
 
 assertSame(
     400,
@@ -21,21 +18,21 @@ assertSame(
 );
 
 assertTrue(
-    strpos($salvar, 'requireConsent') !== false
-    && strpos($salvar, 'requireConsent') < strpos($salvar, 'executeBound'),
+    strpos($src, 'requireConsent') !== false
+    && strpos($src, 'requireConsent') < strpos($src, 'executeBound'),
     'CONS-02: consent is required before any INSERT'
 );
 
 assertTrue(
     preg_match(
         "/executeBound\s*\(\s*'INSERT INTO `resposta`[^']*`aceitou_termo`[^']*\?/",
-        $salvar
+        $src
     )
     && preg_match(
         "/executeBound\s*\(\s*'INSERT INTO `resposta`[\s\S]*?array\s*\([\s\S]*?,\s*1\s*\)/",
-        $salvar
+        $src
     )
-    && strpos($salvar, '`Codigo_G_Exp`') !== false,
+    && strpos($src, '`Codigo_G_Exp`') !== false,
     'CONS-03: resposta insert binds aceitou_termo to 1 and Codigo_G_Exp'
 );
 

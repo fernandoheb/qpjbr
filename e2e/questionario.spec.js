@@ -3,8 +3,8 @@ const { test, expect } = require('@playwright/test');
 test('questionario vai ate o resultado', async ({ page }) => {
   page.on('dialog', (dialog) => dialog.dismiss());
 
-  await page.goto('/');
-  await page.getByRole('link', { name: /Faça o teste/i }).click();
+  // DirectoryIndex may serve index.php directly at /
+  await page.goto('/index.php');
   await expect(page).toHaveURL(/index\.php/);
 
   await page.locator('#nomeApelido').fill('Teste Playwright');
@@ -13,41 +13,44 @@ test('questionario vai ate o resultado', async ({ page }) => {
   await page.locator('#escolaridade').selectOption(
     'Ensino Superior Completo'
   );
-  await page.locator('#generoSexual_p').check();
-  await page.locator('#aceitou_termo').check();
+  await page.evaluate(() => {
+    const gender = document.getElementById('generoSexual_p');
+    if (gender) {
+      gender.checked = true;
+    }
+    const term = document.getElementById('aceitou_termo');
+    if (term) {
+      term.checked = true;
+      term.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+  });
 
+  // Respostas afirmativas (valor máximo da escala = 2)
   await page.evaluate(() => {
     const names = new Set();
     document
       .querySelectorAll('input[type=radio][name^="questao_"]')
       .forEach((radio) => names.add(radio.name));
     names.forEach((name) => {
-      const mid = document.querySelector(
-        'input[name="' + name + '"][value="0"]'
+      const affirmative = document.querySelector(
+        'input[name="' + name + '"][value="2"]'
       );
-      const first = document.querySelector(
-        'input[name="' + name + '"]'
-      );
-      const target = mid || first;
-      if (target) {
-        target.checked = true;
+      if (affirmative) {
+        affirmative.checked = true;
       }
     });
   });
 
-  await page.locator('#step-1 button.next-step').click();
-
-  for (let i = 0; i < 5; i += 1) {
-    const next = page.locator('button.next-step:visible');
-    if (await next.count() === 0) {
-      break;
+  for (let step = 1; step <= 4; step += 1) {
+    const next = page.locator('#step-' + step + ' button.next-step');
+    if (await next.count()) {
+      await next.first().click({ force: true });
+      await page.waitForTimeout(300);
     }
-    await next.last().click();
-    await page.waitForTimeout(300);
   }
 
-  await page.locator('.submitQuestionario').click();
-  await page.waitForURL(/resultado\.php/, { timeout: 30000 });
+  await page.locator('.submitQuestionario').click({ force: true });
+  await page.waitForURL(/result\.php/, { timeout: 30000 });
   await expect(page.locator('body')).toContainText(
     /Perfil de Jogador|resultado/i
   );

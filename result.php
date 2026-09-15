@@ -1,5 +1,5 @@
 <?php
-	include 'functions.inc2.php';
+	require_once __DIR__ . '/src/bootstrap.php';
 	$puxaBD = new Crud();
 	$puxaBD->conn();
   $puxaBD->setCharSet();
@@ -554,7 +554,7 @@ alert("oi");
 			}
 			//alterar endereço
 			//$imagemgerada = "http://localhost/questionario/geraimg.php?fixface=".time()."&img1=".$geraimgv[1]."&img2=".$geraimgv[2]."&img3=".$geraimgv[3]."&img4=".$geraimgv[4]."&img5=".$geraimgv[5]."&img6=".$geraimgv[6]."&img7=".$geraimgv[7]."&img8=".$geraimgv[8]."&img9=".$geraimgv[9]."&img10=".$geraimgv[10];
-			$imagemgerada = $endereco."geraimg.php?fixface=".time()."&img1=".$geraimgv[1]."&img2=".$geraimgv[2]."&img3=".$geraimgv[3]."&img4=".$geraimgv[4]."&img5=".$geraimgv[5]."&img6=".$geraimgv[6]."&img7=".$geraimgv[7]."&img8=".$geraimgv[8]."&img9=".$geraimgv[9]."&img10=".$geraimgv[10];
+			$imagemgerada = $qpjUrls['shareImage']."?fixface=".time()."&img1=".$geraimgv[1]."&img2=".$geraimgv[2]."&img3=".$geraimgv[3]."&img4=".$geraimgv[4]."&img5=".$geraimgv[5]."&img6=".$geraimgv[6]."&img7=".$geraimgv[7]."&img8=".$geraimgv[8]."&img9=".$geraimgv[9]."&img10=".$geraimgv[10];
 ?>
 
 
@@ -727,7 +727,7 @@ graf3 = document.getElementById("graf3").value;
 timespent = tempo2 - tempo;
 Detalhes(0,1);
         var xhr = new XMLHttpRequest();
-        xhr.open('get',"feedback.php?id="+<?php echo $aux;?>+"&tempo="+timespent+"&graf1="+graf1+"&graf2="+graf2+"&graf3="+graf3+"&tempodetalhes="+tempodtotal+"&totaldetalhes="+totaldetalhes+"&detalhesabertos="+detalhesabertos,false);
+        xhr.open('get',<?php echo json_encode($qpjUrls['resultMetrics']); ?>+"?id="+<?php echo $aux;?>+"&tempo="+timespent+"&graf1="+graf1+"&graf2="+graf2+"&graf3="+graf3+"&tempodetalhes="+tempodtotal+"&totaldetalhes="+totaldetalhes+"&detalhesabertos="+detalhesabertos,false);
         xhr.send();
 }
   window.onbeforeunload = feedbackjs;
@@ -1117,7 +1117,7 @@ Detalhes(0,1);
 					<br>
 					    <center>
 						<!-- alterar endereço -->
-					        <a href="./colaboradores.php"><input type="button" class="btn-primary" value="Quem somos"></input></a>
+					        <a href="./collaborators.php"><input type="button" class="btn-primary" value="Quem somos"></input></a>
 					        <br><br>
 					            <table style="background:#F0F0F0;"><td>
 					        <div class="col-sm-3">&nbsp</div>
@@ -1166,7 +1166,7 @@ Detalhes(0,1);
             		document.getElementById("form-group").style.display="none";
 						//alterar o endereço
             			$.ajax({
-					url : './saveData.php?concordo',
+					url : './api/save-opinion.php?tipo=concordo',
 					type: 'POST',
 					dataType: 'json',
 					data: ({respostaOpinao:check , respostaId:idResposta, respostaTipoJogador:tipoJogador}),
@@ -1179,7 +1179,7 @@ Detalhes(0,1);
 
 			if(check=="nao"){
 				//alterar o endereço
-			url = "./nconcordo.php?id="+idResposta;
+			url = "./disagreement.php?id="+idResposta;
 				window.location.assign(url);
 			}
 			else if(<?php echo $flag_resposta; ?> == 1){

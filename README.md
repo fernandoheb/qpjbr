@@ -33,7 +33,7 @@ Cada fator conecta-se teoricamente às três necessidades básicas da Teoria da 
 
 ## Stack tecnológica
 
-- **Backend:** PHP procedural, sem framework. Acesso a banco via `mysqli`, com uma camada de abstração própria (classe `Crud` em [`functions.inc2.php`](functions.inc2.php)).
+- **Backend:** PHP procedural em camadas, sem framework. Persistência via `mysqli` e classe `Crud` em [`src/Db/Crud.php`](src/Db/Crud.php); bootstrap em [`src/bootstrap.php`](src/bootstrap.php).
 - **Banco de dados:** MySQL/MariaDB.
 - **Frontend:** renderizado no servidor (PHP + HTML), jQuery + Bootstrap 3 (tema "Clip-Two"), gráficos radar via [RGraph](assets/js).
 - Sem build tool, sem gerenciador de dependências (nem Composer, nem npm) — bibliotecas de terceiros ficam em [`vendor/`](vendor).
@@ -42,19 +42,20 @@ Cada fator conecta-se teoricamente às três necessidades básicas da Teoria da 
 
 ```
 qpjbr/
-├── index.php / index.html      Página inicial: formulário de cadastro + questionário
-├── Pesquisadores.php           Variante do fluxo principal para acesso via pesquisadores
-├── resultado.php               Exibição do resultado (gráfico radar + perfil calculado)
-├── saveData.php                Persistência das respostas do questionário
-├── feedback.php                Registro de métricas de uso da tela de resultado
-├── nconcordo.php / feedbacknconcordo.php   Fluxo de discordância do resultado
-├── colaboradores.php           Página com a equipe de pesquisa
-├── geraimg.php                 Geração de imagem de resultado para compartilhamento social
-├── functions.inc2.php          Núcleo do backend (classe Crud + funções auxiliares)
-├── .env.example                Modelo de variáveis de conexão (copiar para `.env`)
-├── qpjbr.sql                   Schema/dump de dados mais recente
+├── index.html / index.php      Landing + entrada do questionário
+├── researchers.php             Mesmo questionário (modo pesquisadores)
+├── pages/questionnaire.php     UI compartilhada do wizard
+├── result.php                  Resultado (radar + perfil)
+├── disagreement.php            Discordância do perfil
+├── collaborators.php           Equipe de pesquisa
+├── api/                        Endpoints AJAX (save-*, metrics, share-image)
+├── src/                        Config, Db, Http, Domain, View
+├── sql/qpjbr.sql               Schema/dump mais recente
+├── .env.example                Modelo de variáveis de conexão
 └── trabalhos resultantes/      Artigo científico e trabalhos derivados
 ```
+
+URLs legadas (`saveData.php`, `resultado.php`, `Pesquisadores.php`, etc.) permanecem como stubs de compatibilidade.
 
 ## Schema de dados (principais tabelas)
 
@@ -76,4 +77,4 @@ Conforme discutido no artigo original, o principal caso de uso do QPJ-BR é a **
 
 ## Créditos
 
-Projeto de pesquisa vinculado ao ICMC-USP, com apoio de CAPES, CNPq e FAPESP. Autoria e colaboradores listados em [`colaboradores.php`](colaboradores.php).
+Projeto de pesquisa vinculado ao ICMC-USP, com apoio de CAPES, CNPq e FAPESP. Autoria e colaboradores listados em [`collaborators.php`](collaborators.php).

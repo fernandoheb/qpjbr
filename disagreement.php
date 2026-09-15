@@ -1,5 +1,5 @@
 <?php
-	include 'functions.inc2.php';
+	require_once __DIR__ . '/src/bootstrap.php';
 	$puxaBD = new Crud();
 	$puxaBD->conn();
 ?>
@@ -138,7 +138,7 @@ document.getElementById("buttonsubmit").class=document.getElementById("buttonsub
      function(){//alterar endereço
      window.location = "./";
      })
-     url = "./feedbacknconcordo.php?id="+<?php echo $aux;?>;
+     url = "./api/disagreement-ratings.php?id="+<?php echo $aux;?>;
      i=0;
      while(i<11){
      if(TiposSelecionados[i]==1){url=url+"&type"+i+"=1&rating"+i+"="+rating[i];}

@@ -1,5 +1,9 @@
 <?php
-$index = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'index.php';
+$index = dirname(__DIR__)
+    . DIRECTORY_SEPARATOR
+    . 'pages'
+    . DIRECTORY_SEPARATOR
+    . 'questionnaire.php';
 $src = file_get_contents($index);
 
 assertTrue(

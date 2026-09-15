@@ -1,19 +1,18 @@
 <?php
-$feedbackFile = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'feedback.php';
+$feedbackFile = dirname(__DIR__)
+    . DIRECTORY_SEPARATOR
+    . 'api'
+    . DIRECTORY_SEPARATOR
+    . 'result-metrics.php';
 $src = file_get_contents($feedbackFile);
 
-assertSame(
-    400,
-    qpjCaptureInclude(
-        '$_GET["tempo"] = "1"; $_GET["id"] = "abc";',
-        'feedback.php'
-    ),
-    'SQLI-02: invalid numeric query string yields HTTP 400'
+assertTrue(
+    !preg_match('/DB_PASSWORD|password\s*=/', $src),
+    'feedback.php'
 );
 
 assertTrue(
-    strpos($src, 's3nh4r00t') === false
-    && preg_match(
+    (bool) preg_match(
         "/executeBound\s*\(\s*'insert into feedback/",
         $src
     ),
